@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="icon" type="image/png" href="gbb.png" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1024">
+  <title>GBB</title>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { font-size: 16px; min-width: 1024px; overflow-x: auto; }
+    body { font-family: 'Pretendard', sans-serif; background: #000; color: #fff; min-width: 1024px; overflow-x: auto; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+   header {
+  background: #000;
+}
+.header-right {
+  gap: 0.5rem;            /* 아이콘–텍스트 간 간격도 조금 좁힙니다 */
+  font-size: 0.75rem;     /* 텍스트 크기를 0.875rem → 0.75rem으로 축소 */
+}
+.wrapper {
+  width: 1024px;      /* 또는 원하는 픽셀 값 */
+  margin: 0 auto;     /* 가운데 정렬 */
+}
+/* 로그인·장바구니 아이콘 크기 조정 */
+.header-right .icon {
+  width: 16px;            /* 기존 20px → 16px */
+  height: 16px;           /* 기존 20px → 16px */
+}
+
+/* (선택) 아이콘과 텍스트가 너무 붙어 있다면 여유 주기 */
+.header-right a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;           /* 아이콘과 텍스트 사이 */
+}
+
+.header-container {
+  max-width: 1920px;
+  margin: 0 auto;
+  position: relative;
+  padding: 1.5rem 3rem 0.5rem; /* 위쪽 padding을 1.5rem로 늘려 상단 여백 확보 */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+  .hero img.hero-top {
+    width: 100%;
+    max-width: 1000px; /* ← 여기 숫자를 키워서 이미지 최대 크기를 늘립니다 */
+    height: auto;
+    display: block;
+    margin: 0 auto 2rem;
+  }
+.header-center img {
+  height: 36px;  /* 원하는 크기로 조절 */
+  width: auto;
+}
+    .icon { width: 16px; height: 16px; vertical-align: middle; margin-right: 4px; filter: none; }
+    .header-left { display: flex; align-items: center; gap: 8px; }
+    .header-left img.search-icon { width: 20px; height: 20px; filter: none; }
+    .header-left input[type=search] { width: 200px; padding: 0.4rem; border: none; border-bottom: 1px solid #fff; background: transparent; color: #fff; font-size: 0.875rem; }
+    .header-center { position: absolute; left: 50%; transform: translateX(-50%); }
+    .header-center img { height: 48px; width: auto; }
+    .header-right { display: flex; align-items: center; gap: 1rem; font-size: 0.875rem; color: #fff; }
+
+
+
+    /* Navigation */
+    nav { background: #000; }
+    .nav-container { max-width: 1920px; margin: 0 auto; text-align: center; padding: 0.75rem 0; }
+    .nav-container ul { display: inline-flex; gap: 2.5rem; }
+    .nav-container li {
+  color: #fff;
+  font-size: 0.75rem; /* 한 단계 작게 */
+  letter-spacing: 0.08em; /* 간격도 조금 줄임 */
+  cursor: pointer;
+  transition: opacity .2s;
+}/* nav 컨테이너는 그대로 유지 */
+.nav-container { display:flex; justify-content:center; align-items:center; gap:2rem; }
+.nav-left, .nav-right { display:flex; list-style:none; margin:0; padding:0; gap:2.5rem; }
+.nav-right { gap:3rem; }
+
+/* 링크를 반드시 block으로(클릭영역 확보) */
+.nav-container a{
+  display:block;
+  padding: .25rem 0;           /* 세로 여유 */
+  color:#fff;
+  text-decoration:none;
+}
+
+/* hover/active */
+.nav-container a:hover{ opacity:.75; }
+
+/* 키보드 포커스 표시 */
+.nav-container a:focus-visible{
+  outline:2px solid #E6C38B;
+  outline-offset:2px;
+  border-radius:2px;
+}
+
+/* 가운데 구분선이 클릭 방해하지 않도록 */
+.divider{
+  width:1px; height:16px; background:#fff;
+  pointer-events:none;
+}
+
+.nav-gap {
+  height: 10px; /* 원하는 여백 높이 */
+  background-color: #000; /* 검은색 */
+}
+
+.logo { font-family:'Playfair Display', serif; font-size:1.75rem; font-weight:700; }
+    nav ul { display:flex; gap:1.5rem; list-style:none; font-size:.9rem; }
+    nav a { color:#fff; text-decoration:none; }
+
+    /* 히어로 */
+    .hero {
+      text-align:center;
+      padding:4rem 1rem 2rem;
+    }
+   
+    .hero h1 {
+      font-family:'Playfair Display', serif;
+      font-weight:700;
+      font-size:2.25rem;
+      margin-bottom:.5rem;
+    }
+    .hero p.subtitle {
+      font-size:2rem;
+      margin-bottom:2.5rem;
+    }
+
+    /* 두 번째 배너 */
+    .banner-2 {
+      background:#000;
+      text-align:center;
+      padding:0;
+    }
+    .banner-2 img {
+      width:100%;
+      height:auto;
+      display:block;
+    }
+    .banner-2 .text {
+      max-width:800px;
+      margin:2rem auto 4rem;
+      font-size:1rem;
+      line-height:1.6;
+      color:#fff;
+    }
+   .inspiration {
+      text-align:left;
+      max-width:600px;
+      margin:0 auto;
+      margin-top:5rem;
+       margin-left: 5rem;
+    }
+    .inspiration h2 {
+      font-size:1.5rem;
+      margin-bottom:1rem;
+      font-family: 'Pretendard Variable', sans-serif;
+    }
+    .inspiration h2 .en {
+      font-family: 'Playfair Display', serif;
+      font-style:italic;
+      font-size:1.125rem;
+      margin-left:0.5rem;
+    }
+    .inspiration p {
+      font-size:1rem;
+      line-height: 1.1;   
+      margin-bottom:0.75rem;
+    }
+   .edition {
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    /* ───── 타이틀 ───── */
+    .edition-title {
+      display: inline-flex;
+      align-items: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.25rem;
+      margin-bottom: 2rem;
+    }
+    .edition-title .ko {
+      /* Pretendard로 강제 */
+      font-family: 'Pretendard Variable', sans-serif;
+      font-size: 2rem;
+      font-weight: 400;  
+      margin-left: 1rem;
+    }
+    .edition-title .arrow {
+      margin-left: 0.5rem;
+      color: #FD4F19;
+      font-size: 1rem;
+    }
+
+    /* ───── 이미지 그룹 ───── */
+    .edition-images {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .edition-images img:hover {
+  transform: scale(1.1);           /* 10% 확대 */
+}
+    .edition-images img {
+      /* 모든 이미지를 같은 높이로 고정 */
+      max-height: 400px;
+      width: auto;
+      display: block;
+    }
+
+    /* ───── 설명 텍스트 ───── */
+    .edition-desc {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      text-align: center;
+    }
+    .edition-desc p {
+      margin: 0.5rem 0;
+    }
+  #loader {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #000;
+    overflow: hidden;
+    z-index: 9999;
+  }
+
+  /* ─── 중앙 민들레 이미지 ─────────────────────────────── */
+  .dandelion {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 200px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  /* ─── 홀씨 기본 스타일 & 애니메이션 ─────────────────── */
+  .seed {
+    position: absolute;
+    top: 40%; left: 50%;
+    width: 30px;
+    transform-origin: center;
+    opacity: 0;
+    animation: flyUp 4s ease-out forwards;
+    pointer-events: none;
+  }
+  @keyframes flyUp {
+    0% {
+      opacity: 1;
+      transform: translate(0,0) scale(1) rotate(0deg);
+    }
+    100% {
+      opacity: 0;
+      transform:
+        translate(var(--dx), var(--dy))
+        scale(0.4)
+        rotate(var(--rot));
+    }
+  }
+
+  /* ─── 실제 콘텐츠 숨기기 ───────────────────────────── */
+  #content {
+    visibility: hidden;
+  }
+footer {
+  background: #000;
+  padding: 6rem 3rem;   /* 위아래 넉넉히 */
+  color: #fff;
+}
+
+/* 로고 */
+.footer-top .footer-logo {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.footer-top .footer-logo img {
+  height: 64px; /* 원하는 크기 */
+  width: auto;
+}
+
+/* 링크 영역 정렬 */
+.footer-top .footer-links {
+  display: flex;
+  justify-content: space-evenly; /* 네 컬럼을 균등 분배 */
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+/* 각 컬럼 제목 (col-title) */
+.col-title {
+  font-size: 1rem;
+  font-weight: 400;      /* 레귤러 */
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+/* 리스트 항목 */
+.footer-col ul li {
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 100;      /* 레귤러 */
+  color: #fff;            /* 불투명 화이트 */
+}
+
+.footer-divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  margin: 3rem 0;
+}
+
+/* 바닥글 (footer-bottom) */
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  opacity: 0.6;
+}
+.footer-bottom .footer-copy {
+  color: #fff;
+  opacity: 0.6;
+}
+.footer-bottom .social-icons {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; 
+   margin-right: 20px;            /* 아이콘 간 간격 */
+}
+
+.footer-bottom .social-icons img.footer-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+footer::before {
+  content:"";
+  display:block;
+  width:100%;
+  height:1px;
+  margin:80px 0 40px;
+  background:rgba(255,255,255,.15); /* 은은한 회색빛 */
+}
+
+</style>
+</head>
+<body><div id="loader">
+  <img src="dandelion.png" class="dandelion" alt="dandelion"/>
+  <!-- 아래 스크립트가 <img class="seed"> 요소들을 자동 생성합니다 -->
+</div>
+
+<!-- 기존 페이지 전체를 이 안으로 감싸세요 -->
+<div id="content"> <header>
+    <div class="header-container">
+      <div class="header-left">
+        <img class="search-icon" src="b.png" alt="검색">
+        <input type="search" placeholder="검색">
+      </div>
+      <div class="header-center">
+    <a href="index.html" class="logo">
+  <img src="logo.png" alt="GBB">
+</a>
+      </div>
+      <div class="header-right">
+        <a href="#"><img class="icon" src="c.png" alt="로그인"></a>
+        <a href="#"><img class="icon" src="d.png" alt="장바구니"></a>
+      </div>
+    </div>
+    <nav>
+  <div class="nav-container">
+    <ul class="nav-left">
+      <li><a href="high.html">하이주얼리</a></li>
+      <li><a href="jewelry.html">주얼리</a></li>
+      <li><a href="watch.html">시계</a></li>
+      <li><a href="accessory.html">액세서리</a></li>
+      <li><a href="gift.html">기프트</a></li>
+    </ul>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <ul class="nav-right">
+      <li><a href="brand.html">GBB 소개</a></li>
+      <li><a href="news.html">새로운 소식</a></li>
+      <li><a href="history.html">GBB 컬렉션 히스토리</a></li>
+    </ul>
+  </div>
+</nav>
+  </header>
+  <section class="hero">
+    <!-- 첫 번째 이미지 -->
+    <img src="w.png" alt="GBB Dandelion Edition" class="hero-top"/>
+    <!-- 타이틀 -->
+    <h1>GBB Dandelion Edition</h1>
+    <p class="subtitle">민들레 홀씨처럼 시간 위에 퍼지는 축복</p>
+  </section>
+
+  <!-- 3. 두 번째 배너 (full-width 이미지 + 설명) -->
+  <section class="banner-2">
+    <img src="ww.png" alt="Limited Edition Watch"/>
+    <div class="text">
+     GBB의 아이코닉한 다이얼 위에 섬세히 새겨진 민들레 모티브와<br>
+24K 골드 브레이슬릿의 정교한 조화가 완성한 리미티드 에디션 워치입니다.<br>
+매 순간을 하나님의 시간으로 채워지기를 축복합니다.
+    </div><br><br><br><br><br><br><br><br>
+  </section>
+    <section class="banner-2">
+    <img src="www.png" alt="Limited Edition Watch"/>
+  </section>
+<section class="inspiration">
+      <br><br><h2>영감과 스토리<span class="en">(Inspiration &amp; Story)</span></h2>
+      <p>민들레 홀씨는 ‘축복이 퍼져나가는 여정’을 상징합니다.</p>
+      <p>GBB 워치는 당신의 일상 속에서도 작지만 강한 응원의 메시지를 담고자 합니다.</p>
+      <p>하나의 씨앗이 바람에 날려 새로운 생명을 틔우듯,</p>
+      <p>이 워치가 곁에 있는 모든 순간이 축복을 나누는 순간들로 채워지길 바라며 제작하였습니다.</p><br><br><br><br><br><br><Br>
+    </section>
+     <section class="banner-2">
+    <img src="w2.png" alt="Limited Edition Watch"/>
+  </section>
+  </div>
+
+ 
+    <section class="edition">
+    <h2 class="edition-title">
+      <span class="en">GBB Dandelion Edition</span>
+      <span class="ko">전체보기</span>
+      <span class="arrow">▶</span>
+    </h2>
+
+    <div class="edition-images">
+      <img src="wb.png" alt="Black Edition"/>
+      <img src="wo.png" alt="Orange Edition"/>
+      <img src="wh.png" alt="White Edition"/>
+    </div>
+
+    <div class="edition-desc">
+      <p>민들레 홀씨가 퍼지는 우아함을 담은 GBB Dandelion Edition 전 컬렉션을 만나보세요.</p>
+      <p>가볍고 견고한 세라믹 버전으로 시그니처 오렌지와 깨끗한 화이트, 그리고 시크한 블랙 총 3가지 컬러로 구성되었습니다.</p>
+    </div>
+  </section>
+  <footer>
+    <div class="footer-top">
+      <!-- 1) 로고를 텍스트 대신 img 로 치환 -->
+      <div class="footer-logo">
+        <img src="logo.png" alt="GBB 로고">
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-col">
+          <p class="col-title">GOD BLESS BIN 브랜드 스토리보기</p>
+          <ul>
+            <li>첫번째 컬렉션</li>
+            <li>반지</li>
+            <li>목걸이</li>
+            <li>팔찌</li>
+            <li>귀걸이</li>
+            <li>시계</li>
+            <li>비녀</li>
+            <li>패션웨어</li>
+            <li>선물세트</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <p class="col-title">온라인 서비스</p>
+          <ul>
+            <li>GBB 멤버십 보기</li>
+            <li>결제 방법</li>
+            <li>배송 옵션</li>
+            <li>마이 페이지</li>
+            <li>반품</li>
+            <li>케어 & 서비스</li>
+            <li>Q&A</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <p class="col-title">매장 서비스</p>
+          <ul>
+            <li>근처 매장 찾기</li>
+            <li>매장 방문 예약</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <p class="col-title">GBB</p>
+          <ul>
+            <li>채용 공고</li>
+            <li>법률 성명</li>
+            <li>개인정보처리방침</li>
+            <li>Report to Society</li>
+            <li>위조품 근절</li>
+            <li>재무 실적</li>
+            <li>지속가능연계채권 업데이트</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <hr class="footer-divider">
+ <div class="footer-bottom">
+    <div>Change location and language 한국어 - Korean</div>
+    <div class="social-icons">
+      <!-- 기존 소셜링크들… -->
+      <a href="#" class="instagram"></a>
+      <a href="#" class="facebook"></a>
+      <a href="#" class="youtube"></a>
+      <a href="#" class="linkedin"></a>
+      <a href="#" class="kakao"></a>
+
+      <!-- 새로 추가 -->
+      <a href="#"><img src="e.png" alt="Icon E" class="footer-icon"></a>
+      <a href="#"><img src="f.png" alt="Icon F" class="footer-icon"></a>
+      <a href="#"><img src="g.png" alt="Icon G" class="footer-icon"></a>
+      <a href="#"><img src="h.png" alt="Icon H" class="footer-icon"></a>
+      <a href="#"><img src="i.png" alt="Icon I" class="footer-icon"></a>
+    </div>
+</div>
+<script>
+    (function() {
+      const loader = document.getElementById('loader');
+      const SEED_COUNT = 10;  // 홀씨 개수
+
+      // 홀씨 생성
+      for (let i = 0; i < SEED_COUNT; i++) {
+        const seed = document.createElement('img');
+        seed.src = 'seed.png';
+        seed.className = 'seed';
+
+        // 위로 퍼져나가도록 랜덤 거리·방향·회전값 설정
+        const dx   = (Math.random() - 0.5) * 200 + 'px';   // 좌우 ±50px
+        const dy   = -(150 + Math.random() * 200) + 'px'; // 위로 150~300px
+        const rot  = (Math.random() - 0.9) * 300 + 'deg';   // 회전 ±30°
+
+        seed.style.setProperty('--dx', dx);
+        seed.style.setProperty('--dy', dy);
+        seed.style.setProperty('--rot', rot);
+
+        // 자연스러운 시간차를 위한 지연
+        seed.style.animationDelay = (Math.random() * 1.0) + 's';
+
+        loader.appendChild(seed);
+      }
+
+      // 페이지 로드 완료 시 로더 페이드아웃 후 제거
+      window.addEventListener('load', () => {
+        loader.style.transition = 'opacity 0.9s ease';
+        loader.style.opacity = '0';
+        loader.addEventListener('transitionend', () => {
+          loader.remove();
+          document.getElementById('content').style.visibility = 'visible';
+        });
+      });
+    })();
+  </script>
+  </div>
+  </footer>
+</body>
+</html>

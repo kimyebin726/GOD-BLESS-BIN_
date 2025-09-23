@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GBB - 홈</title>
+  <link rel="icon" type="image/png" href="gbb.png" />
+  <!-- Fonts -->
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/gh/linecorp/line-seed-font/css/LineSeedKR.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ================== Design System ================== */
+    :root{
+      --bg: #000;
+      --text: #F6F1E6;           /* 크림 화이트 */
+      --text-sub: #E6C38B;       /* 웜 골드 */
+      --hairline: rgba(246,241,230,.45);
+      --muted: rgba(255,255,255,.6);
+      --card: #0C0B0A;
+      --accent: #C76629;         /* GBB 레드오렌지 포인트 */
+    }
+
+    /* ================== Base ================== */
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--text);font-family:'Pretendard',system-ui,-apple-system,sans-serif}
+    a{color:inherit;text-decoration:none}
+    img,video{display:block;max-width:100%;height:auto}
+html, body { overflow-x: hidden; }
+    /* ================== Headings / Paragraphs ================== */
+    .k-serif{font-family:'Eulyoo1945','Noto Serif KR','Playfair Display',serif}
+    .k-sans{font-family:'LINE Seed KR','SUIT','Pretendard',sans-serif}
+    .en-serif{font-family:'Playfair Display',serif}
+
+    @font-face{
+      font-family:'Eulyoo1945';
+      src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307@1.1/Eulyoo1945-Regular.woff2') format('woff2');
+      font-weight:400;font-style:normal;font-display:swap
+    }
+    @font-face{
+      font-family:'Eulyoo1945';
+      src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307@1.1/Eulyoo1945-Bold.woff2') format('woff2');
+      font-weight:700;font-style:normal;font-display:swap
+    }
+.top-images img[src="2222.png"] {
+  margin-bottom: 200px; /* 원하는 간격(px 단위로 조정) */
+}
+.top-images img[src="2222.png"]{
+  margin: 250px 0;   /* 위·아래 220px (원하는 값으로 조정) */
+}
+    /* ================== Header / Nav ================== */
+    header{background:var(--bg)}
+    .header-container{
+      max-width:1920px;margin:0 auto;position:relative;
+      padding:1.25rem 3rem .25rem;display:flex;align-items:center;justify-content:space-between
+    }
+    .header-left{display:flex;align-items:center;gap:.5rem}
+    .header-left input[type=search]{
+      width:200px;padding:.45rem .25rem;border:none;border-bottom:1px solid var(--hairline);
+      background:transparent;color:var(--text);font-size:.875rem
+    }
+    .header-center{position:absolute;left:50%;transform:translateX(-50%)}
+    .header-center img{height:44px;width:auto}
+    .header-right{display:flex;align-items:center;gap:.75rem}
+    .icon{width:18px;height:18px}
+
+    nav{background:var(--bg)}
+    .nav-container{
+      max-width:1920px;margin:0 auto;padding:.75rem 0;
+      display:flex;justify-content:center;align-items:center;gap:2rem
+    }
+    .nav-left,.nav-right{display:flex;gap:2.25rem;list-style:none}
+    .nav-container a{display:block;padding:.25rem 0;letter-spacing:.08em;font-size:.78rem}
+    .nav-container a:hover{opacity:.7}
+    .divider{width:1px;height:16px;background:var(--hairline);pointer-events:none}
+    .nav-gap{height:10px;background:var(--bg)}
+.top-images img[src="2222.png"] {
+  margin-bottom: 200px; /* 원하는 값(px)으로 조정 */
+}
+.split-hero.stack {
+  margin-top: 200px; /* kk.png 들어간 섹션 전체를 아래로 */
+}
+
+    .top-images{
+  margin:0;
+  margin-bottom:150px;
+  position: relative;
+  overflow: hidden;              /* 추가 */
+}
+.top-images > *{ width:100%; margin:0 0 150px; }
+.top-images > *:last-child{ margin-bottom:0; }
+.top-images img:hover{
+  transform:scale(1.01);
+  filter:brightness(1.06);
+  transition:.4s;
+}
+.split-hero.stack{
+  grid-template-columns: 1fr;  /* 2열 → 1열 */
+  min-height: auto;
+  padding: 0 0 72px;           /* 아래 여백만 */
+}.split-hero.stack .split-media{
+  height: auto;          /* 고정 높이 제거 → 이미지 높이에 맞춤 */
+}
+
+.split-media{
+  position: relative;
+  overflow: visible;     /* 잘림 방지 */
+}
+
+.split-media img{
+  position: static;      /* absolute 해제 → 문서 흐름에서 크기 결정 */
+  display: block;
+  width: 100%;
+  height: auto;          /* 원본 비율 유지 */
+  object-fit: contain;   /* 안전장치(사실 height:auto로 충분) */
+  will-change: auto;
+}
+
+.split-inner{
+  max-width: 680px;            /* 글 너비 고정 */
+  margin: 0 auto;              /* 가운데 정렬 */
+  text-align: center;          /* 안의 모든 텍스트 중앙 */
+}
+
+.split-inner > *{
+  margin-bottom: 1.25rem;      /* 요소 간 간격 일정 */
+}
+.split-inner > *:last-child{ margin-bottom:0 }
+
+.split-title{
+  font:500 clamp(28px,3.2vw,46px)/1.25 'Playfair Display','Eulyoo1945',serif;
+  color:#EDE6D8;
+}
+
+.k-intro{
+  max-width: 64ch;   /* 기존보다 넓게 (필요하면 66~68ch까지) */
+  text-wrap: balance;
+  line-height: 1.9;
+  margin-left:auto; margin-right:auto;
+}
+.en-intro{
+  margin:0;                    /* 개별 마진 제거 */
+  line-height:1.85;
+  color:var(--text-sub);       /* 한/영 색상 톤 맞춤 */
+  word-break: keep-all;
+  text-align:center;           /* 문단도 중앙 */
+}
+.en-intro{ color:#F1E6C8; }
+
+.hairline{
+  width: min(56vw, 520px);     /* 가운데 긴 언더라인 */
+  height:1px;
+  background:linear-gradient(90deg,rgba(230,195,139,.2),rgba(230,195,139,.7),rgba(230,195,139,.2));
+  border:0;
+  margin:1.5rem auto;          /* 중앙 정렬 */
+}
+   /* 혹시 모를 위 여백 제거 */
+.hairline{ margin: 1.1rem auto; }           /* 구분선 위아래도 살짝 압축(선택) */
+
+/* 마지막 영문 문구(“GOD BLESS YOU”)도 동일 계열로 */
+.split-inner .en-serif{
+  letter-spacing:.2em;
+  color:var(--muted);
+  text-align:center;
+}
+.hero-title {
+  font-size: 2.5rem;       /* 필요에 따라 크기 조정 */
+  font-weight: 600;
+  margin: 0;
+}
+
+.hero-title .gbb {
+  color: #ffffff;          /* 흰색 */
+  font-family: 'Noto Serif KR', serif; /* 고급스러운 세리프 */
+}
+
+.hero-title .subtitle {
+  color: #ffffff;          /* 흰색 */
+  font-family: 'Noto Sans KR', sans-serif; /* 산세리프 */
+  font-weight: 400;
+}
+
+    /* ================== HERO (Watch + Slogan) ================== */
+   .hero{
+  position: relative;
+  height: auto;          /* ← 72vh 등 고정 높이 제거 */
+  min-height: 0;         /* 최소 높이 해제 */
+  overflow: visible;     /* 잘림 방지 */
+}
+.split-inner{ will-change: transform; } /* 마우스 모션 성능 최적화 */
+
+/* 2) 이미지는 문서 흐름에서 크기 결정 */
+.hero > img{
+  position: static;      /* absolute 해제 */
+  width: 100%;
+  height: auto;          /* ← 원본 비율 유지, 전체 보임 */
+  display: block;
+  object-fit: contain;   /* 안전하게 전체 보이도록(실은 height:auto가 충분) */
+  object-position: center center;
+}
+
+/* 3) 겹치는 카피는 그대로 섹션 안에서 절대 배치 */
+.hero .copy {
+  position: absolute;
+  left: 5vw;
+  bottom: 4vh;   /* 기존 8vh → 4vh (더 내려감) */
+}
+.hero .copy h1,
+.hero .copy h2,
+.hero .copy .split-title{
+  margin-bottom: .75rem;
+}
+.hero .copy p.k-sans {
+  font-size: 1.1rem !important;
+  font-weight: 400 !important;
+  font-family: 'SUIT','Pretendard',sans-serif !important;
+  color: #fff !important;
+  text-align: left !important;
+
+  text-decoration: underline !important;
+  text-decoration-thickness: 1px !important;
+  text-underline-offset: 6px !important;
+}
+
+/* 히어로 카피 문구 글자 크기 축소 */
+.hero .copy p.k-sans{
+  font-size: 0.95rem !important;  /* 원하는 값으로: 1rem, 0.9rem 등 */
+}
+@media (max-width: 960px){
+  .hero .copy p.k-sans{ font-size: 0.9rem !important; }
+}
+@media (max-width: 600px){
+  .hero .copy p.k-sans{ font-size: 0.84rem !important; }
+}
+.hero .copy h1::after,
+.hero .copy h2::after,
+.hero .copy .split-title::after{
+  content:"";
+  display:block;
+  width: min(40vw, 380px);      /* 밑줄 길이 */
+  height: 1px;                  /* 두께 (더 얇게 0.75px도 가능) */
+  margin-top: .25rem;           /* 제목과 밑줄 사이 간격 */
+  background: linear-gradient(
+    90deg,
+    rgba(201,165,114,.18),
+    rgba(201,165,114,.85),
+    rgba(201,165,114,.18)
+  );
+}.hero .copy .hero-title .gbb{
+  font-family: "Playfair Display","Eulyoo1945",serif !important;
+  font-weight: 500 !important;
+  color:#EDE6D8 !important;
+  letter-spacing: 0;
+}.hero .copy .hero-title .subtitle{
+  color:#EDE6D8; /* 아이보리 톤으로 통일 */
+}
+    }
+ .hero .copy p {
+  font-size: 1.1rem;       /* 첫번째 사진과 동일 크기 */
+  font-weight: 400;        /* regular */
+  font-family: 'SUIT','Pretendard',sans-serif; /* 같은 폰트 */
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+}
+
+
+    /* ================== Products Grid ================== */
+    .products{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:32px;background:var(--bg)
+    }
+    .product-item{position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--card);cursor:pointer;transition:transform .3s, box-shadow .3s}
+    .product-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .3s}
+    .product-item:hover{transform:translateY(-5px);box-shadow:0 10px 24px rgba(0,0,0,.45)}
+    .product-item:hover img{transform:scale(1.06)}
+    .product-item::before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.35),rgba(0,0,0,.15));opacity:0;transition:.3s}
+    .product-item:hover::before{opacity:1}
+    .product-item .title{position:absolute;left:12px;bottom:12px;right:12px;text-align:center;font:.95rem/1 'SUIT',sans-serif;opacity:0;transform:translateY(8px);transition:.3s}
+    .product-item:hover .title{opacity:1;transform:translateY(0)}
+    @media(max-width:1200px){.products{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:800px){.products{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:500px){.products{grid-template-columns:1fr}}
+
+    /* /* 비디오 래퍼 */
+.video-wrap{position:relative}
+.video-wrap video{display:block;width:100%;height:auto}
+
+/* 컨트롤 컨테이너: 하단 왼쪽 */
+.video-controls{
+  position:absolute; left:16px; bottom:16px; display:flex; gap:12px;
+  opacity:0; pointer-events:none; transform:translateY(6px);
+  transition:opacity .25s ease, transform .25s ease;
+}
+.video-wrap.show-controls .video-controls{
+  opacity:1; pointer-events:auto; transform:translateY(0);
+}
+
+/* 버튼 스타일 (스크린샷처럼 둥근 사각 + 반투명) */
+.vc-btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:44px; height:44px; border:none; border-radius:12px;
+  background:rgba(0,0,0,.48); backdrop-filter:blur(6px);
+  box-shadow:0 2px 10px rgba(0,0,0,.25);
+  cursor:pointer;
+}
+.vc-btn:hover{ background:rgba(0,0,0,.65) }
+.vc-btn:active{ transform:scale(.98) }
+.vc-btn svg{ display:block }
+.features{
+  display:flex;
+  gap:12px;
+  padding:48px 24px;
+  background:var(--bg);
+  overflow:hidden;    
+  margin-top: 150px; 
+  margin-bottom: 150px; /* 아래쪽 블랙 여백 */
+}
+/* Feature 캡션: 왼쪽 정렬 + 밑줄 복구 */
+.feature { position: relative; }
+
+.feature .caption{
+  position: absolute !important;
+  left: 2rem; right: auto; bottom: 1.5rem;
+  text-align: left;
+  margin: 0; padding: 0;
+
+  /* ← 밑줄 복구 */
+  color:#fff;
+  text-decoration: underline !important;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+}
+
+/* (보강: 일부 브라우저에서 underline가 약하면 커스텀 라인) */
+.feature .caption.u-strong{ text-decoration: none !important; }
+.feature .caption.u-strong::after{
+  content:""; display:block; height:1px; margin-top:.35rem;
+  width: max(38ch, 220px);                    /* 필요에 따라 줄 길이 조정 */
+  background: rgba(255,255,255,.9);
+}
+
+.feature img{
+  width:100%;
+  height:auto;                   /* 100% → auto 로 수정 */
+  object-fit:cover;
+  display:block;
+}
+.feature .caption{
+  display:block;
+  position:absolute;
+  right:2rem; bottom:1.5rem;
+  color:#fff;
+  font:1.1rem/1.2 'SUIT',sans-serif;
+  text-decoration:underline;
+  text-decoration-thickness:1px;
+  text-underline-offset:6px;
+  z-index:2;
+}
+
+/* 로고 */
+.footer-top .footer-logo {
+  display: flex;
+  justify-content: center;  /* 가로 중앙 */
+  align-items: center;      /* 세로 중앙 */
+  margin-bottom: 3rem;
+}
+
+.footer-top .footer-logo img {
+  height: 64px;
+  width: auto;
+  display: block;
+}
+
+/* 링크 영역 정렬 */
+.footer-top .footer-links {
+  display: flex;
+  justify-content: space-evenly; /* 네 컬럼을 균등 분배 */
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+/* 각 컬럼 제목 (col-title) */
+.col-title {
+  font-size: 1rem;
+  font-weight: 400;      /* 레귤러 */
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+/* 리스트 항목 */
+.footer-col ul li {
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 100;      /* 레귤러 */
+  color: #fff;            /* 불투명 화이트 */
+}
+.footer-col ul {
+  list-style: none; /* 불릿 제거 */
+  padding-left: 0;  /* 들여쓰기 제거 */
+}
+
+
+.footer-divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  margin: 3rem 0;
+}
+
+/* 바닥글 (footer-bottom) */
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  opacity: 0.6;
+}
+.footer-bottom .footer-copy {
+  color: #fff;
+  opacity: 0.6;
+}
+.footer-bottom .social-icons {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; 
+   margin-right: 20px;            /* 아이콘 간 간격 */
+}
+
+.footer-bottom .social-icons img.footer-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+/* 이미지 전용 스크롤 모션 */
+.reveal-init {
+  opacity: 0;
+  transform: translateY(30px) scale(.97);
+  transition: opacity 1s ease, transform 1s cubic-bezier(.2,.65,.2,1);
+  will-change: transform, opacity;
+}
+.reveal-in {
+  opacity: 1;
+  transform: none;
+}
+
+    .dandelion{position:absolute;top:50%;left:50%;width:200px;transform:translate(-50%,-50%);pointer-events:none}
+    .seed{position:absolute;top:40%;left:50%;width:30px;transform-origin:center;opacity:0;animation:flyUp 4s ease-out forwards;pointer-events:none}
+    @keyframes flyUp{
+      0%{opacity:1;transform:translate(0,0) scale(1) rotate(0)}
+      100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.4) rotate(var(--rot))}
+    }
+    #content{visibility:hidden}
+footer::before {
+  content:"";
+  display:block;
+  width:100%;
+  height:1px;
+  margin:80px 0 40px;
+  background:rgba(255,255,255,.15); /* 은은한 회색빛 */
+}
+
+
+  </style>
+</head>
+<body>
+  <!-- Loader -->
+  <div id="loader">
+    <img src="dandelion.png" class="dandelion" alt="dandelion" />
+  </div>
+
+  <div id="content">
+    <header>
+      <div class="header-container">
+        <div class="header-left">
+          <img class="icon" src="b.png" alt="검색" />
+          <input type="search" placeholder="검색" />
+        </div>
+        <div class="header-center"><a href="index.html" class="logo"><img src="logo.png" alt="GBB" /></a></div>
+        <div class="header-right">
+          <a href="#"><img class="icon" src="c.png" alt="로그인" /></a>
+          <a href="#"><img class="icon" src="d.png" alt="장바구니" /></a>
+        </div>
+      </div>
+      <nav>
+        <div class="nav-container">
+          <ul class="nav-left">
+            <li><a href="high.html">하이주얼리</a></li>
+            <li><a href="jewelry.html">주얼리</a></li>
+            <li><a href="watch.html">시계</a></li>
+            <li><a href="accessory.html">액세서리</a></li>
+            <li><a href="gift.html">기프트</a></li>
+          </ul>
+          <div class="divider" aria-hidden="true"></div>
+          <ul class="nav-right">
+            <li><a href="brand.html">GBB 소개</a></li>
+            <li><a href="news.html">새로운 소식</a></li>
+            <li><a href="history.html">GBB 컬렉션 히스토리</a></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="nav-gap"></div>
+    </header>
+
+   <section class="top-images">
+  <div class="video-wrap" id="heroVideoWrap">
+    <video id="heroVideo" autoplay muted loop playsinline>
+      <source src="gbb.mov" type="video/quicktime" />
+      <source src="gbb.mp4" type="video/mp4" />
+    </video>
+
+    <!-- 컨트롤 -->
+    <div class="video-controls">
+      <!-- 음소거 토글 -->
+      <button class="vc-btn" id="btnMute" aria-pressed="true" aria-label="음소거 해제">
+        <!-- 스피커 + X 아이콘 (음소거 상태) -->
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path d="M4 10v4h3l5 4V6L7 10H4z" fill="none" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M17 9l4 4m0-4l-4 4" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <!-- 재생/일시정지 토글 -->
+      <button class="vc-btn" id="btnPlay" aria-pressed="false" aria-label="일시정지">
+        <!-- 일시정지 아이콘 (기본 재생 중) -->
+        <svg id="iconPause" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path d="M7 5h3v14H7zM14 5h3v14h-3z" fill="white"/>
+        </svg>
+        <!-- 재생 아이콘(초기엔 숨김) -->
+        <svg id="iconPlay" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" style="display:none">
+          <path d="M8 5l12 7-12 7V5z" fill="white"/>
+        </svg>
+      </button>
+    </div>
+  </div><br><br><br>
+
+  <!-- 나머지 이미지는 그대로 -->
+  <img src="2222.png" alt="상단 이미지 2" /><br><br>
+    <img src="222.png" alt="상단 이미지 3" />
+</section>
+
+
+  <section class="split-hero stack" id="gbbSplit">
+  <div class="split-media">
+    <video autoplay muted loop playsinline>
+      <source src="kkk.mp4" type="video/mp4" />
+      브라우저가 비디오 태그를 지원하지 않습니다.
+    </video>
+    <div class="media-vignette"></div>
+  </div>
+
+  <div class="split-copy">
+    <div class="split-inner">
+    <br>  <br> <br> <br> <br> <br> <br> <br> <br> <h1 class="split-title k-serif">Shalom, GBB</h1>
+
+    <p class="k-intro">
+  GBB는 예수 그리스도의 희생을 기념하며 그 은혜의 축복을 일상 속에서 함께 나누기 위해<br>
+  탄생한 크리스천 하이앤드 주얼리 브랜드입니다.
+</p>
+<p class="k-intro">
+  민들레 홀씨가 바람을 타 새 생명을 퍼뜨리듯 우리의 삶에서도 사랑과 희망의 빛이<br>
+  번져가길 바라며, 모든 작품에는 그 마음을 담았습니다.
+</p>
+
+      <hr class="hairline" />
+
+      <p class="en-intro en-serif">GBB is a jewelry brand for Christians who honor Jesus Christ’s sacrifice and share His grace.</p>
+      <p class="en-intro en-serif">Just as a dandelion’s seed brings forth new life, we hope our own lives—blessed through Christ—might in turn spread blessings.</p>
+
+      <p class="en-serif">GOD BLESS YOU</p><br> <br> <br> <br> <br> <br> <br> 
+    </div>
+  </div>
+</section>
+
+
+    <!-- Hero (Watch + Slogan) -->
+    <section class="hero">
+      <img src="a.jpeg" alt="손에 착용된 시계 이미지" />
+      <div class="copy">
+        <p class="k-sans">GBB, 축복의 문을 열다. 첫 컬렉션 감상하러 가기</p>
+      </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products">
+      <div class="product-item"><img src="product-thorn-white.jpg" alt="반지" /><div class="title">반지</div></div>
+      <div class="product-item"><img src="product-thorn-gold.jpg" alt="팔찌" /><div class="title">팔찌</div></div>
+      <div class="product-item"><img src="product-thorn-rose.jpg" alt="목걸이" /><div class="title">목걸이</div></div>
+      <div class="product-item"><img src="product-set1.jpg" alt="세트 I" /><div class="title">세트 I</div></div>
+      <div class="product-item"><img src="product-band-necklace.jpg" alt="띠형 목걸이" /><div class="title">띠형 목걸이</div></div>
+      <div class="product-item"><img src="product-brooch.jpg" alt="브로치" /><div class="title">브로치</div></div>
+      <div class="product-item"><img src="product-hairpin.jpg" alt="비녀" /><div class="title">비녀</div></div>
+      <div class="product-item"><img src="product-set2.jpg" alt="세트 II" /><div class="title">세트 II</div></div>
+    </section>
+
+<section class="features">
+  <div class="feature second">
+    <img src="rring.png" alt="면류관 반지" />
+    <div class="caption k-sans">
+      면류관 반지 컬렉션을 감상해 보세요
+    </div>
+  </div>
+</section>
+
+  <footer>
+    <div class="footer-top">
+      <!-- 1) 로고를 텍스트 대신 img 로 치환 -->
+      <div class="footer-logo">
+        <img src="logo.png" alt="GBB 로고">
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-col">
+          <p class="col-title">GOD BLESS BIN 브랜드 스토리보기</p>
+          <ul>
+            <li>첫번째 컬렉션</li>
+            <li>반지</li>
+            <li>목걸이</li>
+            <li>팔찌</li>
+            <li>귀걸이</li>
+            <li>시계</li>
+            <li>비녀</li>
+            <li>패션웨어</li>
+            <li>선물세트</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <p class="col-title">온라인 서비스</p>
+          <ul>
+            <li>GBB 멤버십 보기</li>
+            <li>결제 방법</li>
+            <li>배송 옵션</li>
+            <li>마이 페이지</li>
+            <li>반품</li>
+            <li>케어 & 서비스</li>
+            <li>Q&A</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <p class="col-title">매장 서비스</p>
+          <ul>
+            <li>근처 매장 찾기</li>
+            <li>매장 방문 예약</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <p class="col-title">GBB</p>
+          <ul>
+            <li>채용 공고</li>
+            <li>법률 성명</li>
+            <li>개인정보처리방침</li>
+            <li>Report to Society</li>
+            <li>위조품 근절</li>
+            <li>재무 실적</li>
+            <li>지속가능연계채권 업데이트</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <hr class="footer-divider">
+ <div class="footer-bottom">
+    <div>Change location and language 한국어 - Korean</div>
+    <div class="social-icons">
+      <!-- 기존 소셜링크들… -->
+      <a href="#" class="instagram"></a>
+      <a href="#" class="facebook"></a>
+      <a href="#" class="youtube"></a>
+      <a href="#" class="linkedin"></a>
+      <a href="#" class="kakao"></a>
+
+      <!-- 새로 추가 -->
+      <a href="#"><img src="e.png" alt="Icon E" class="footer-icon"></a>
+      <a href="#"><img src="f.png" alt="Icon F" class="footer-icon"></a>
+      <a href="#"><img src="g.png" alt="Icon G" class="footer-icon"></a>
+      <a href="#"><img src="h.png" alt="Icon H" class="footer-icon"></a>
+      <a href="#"><img src="i.png" alt="Icon I" class="footer-icon"></a>
+    </div>
+
+  </div>
+  </footer>
+
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // Loader dandelion seeds
+    (function(){
+      const loader=document.getElementById('loader'), SEED_COUNT=10;
+      for(let i=0;i<SEED_COUNT;i++){
+        const s=document.createElement('img');
+        s.src='seed.png'; s.className='seed';
+        const dx=(Math.random()-0.5)*200+'px';
+        const dy=-(150+Math.random()*200)+'px';
+        const rot=(Math.random()-0.5)*60+'deg';
+        s.style.setProperty('--dx',dx); s.style.setProperty('--dy',dy); s.style.setProperty('--rot',rot);
+        s.style.animationDelay=(Math.random()*1)+'s';
+        loader.appendChild(s);
+      }
+      window.addEventListener('load',()=>{
+        loader.style.transition='opacity .8s ease';loader.style.opacity='0';
+        loader.addEventListener('transitionend',()=>{loader.remove();document.getElementById('content').style.visibility='visible';});
+      });
+    })();
+
+    // Split-hero subtle parallax
+    (() => {
+      const s=document.getElementById('gbbSplit'); if(!s) return;
+      const img=s.querySelector('.split-media img');
+      let tx=0,ty=0,cx=0,cy=0; const lerp=(a,b,t)=>a+(b-a)*t;
+      function move(e){
+        const r=s.getBoundingClientRect();
+        const mx=(e.clientX-(r.left+r.width/2))/r.width;
+        const my=(e.clientY-(r.top+r.height/2))/r.height;
+        tx=mx*12; ty=my*12;
+      }
+      function tick(){ cx=lerp(cx,tx,.08); cy=lerp(cy,ty,.08); img.style.transform=`translate3d(${cx}px,${cy}px,0) scale(1.06)`; requestAnimationFrame(tick); }
+      if(!matchMedia('(prefers-reduced-motion: reduce)').matches){ window.addEventListener('mousemove',move,{passive:true}); tick(); }
+    })();
+  </script>
+  <script>
+  // Split-hero parallax (image + text follow cursor)
+  (() => {
+    const s   = document.getElementById('gbbSplit'); 
+    if (!s) return;
+
+    const img    = s.querySelector('.split-media img');
+    const inner  = s.querySelector('.split-inner');  // 텍스트 컨테이너
+
+    let txImg=0, tyImg=0, cxImg=0, cyImg=0;
+    let txTxt=0, tyTxt=0, cxTxt=0, cyTxt=0;
+
+    const lerp = (a,b,t)=>a+(b-a)*t;
+
+    function onMove(e){
+      const r  = s.getBoundingClientRect();
+      const mx = (e.clientX - (r.left + r.width/2)) / r.width;   // -0.5 ~ 0.5
+      const my = (e.clientY - (r.top  + r.height/2)) / r.height;
+
+      // 깊이감: 이미지가 더 크게, 텍스트는 반대 방향으로 살짝
+      txImg =  mx * 12;   tyImg =  my * 12;
+      txTxt = -mx * 8;    tyTxt = -my * 6;
+    }
+
+    function onLeave(){
+      // 가운데로 자연 복귀
+      txImg = tyImg = txTxt = tyTxt = 0;
+    }
+
+    function tick(){
+      cxImg = lerp(cxImg, txImg, .08);
+      cyImg = lerp(cyImg, tyImg, .08);
+      cxTxt = lerp(cxTxt, txTxt, .10);
+      cyTxt = lerp(cyTxt, tyTxt, .10);
+
+      if (img)   img.style.transform   = `translate3d(${cxImg}px,${cyImg}px,0) scale(1.06)`;
+      if (inner) inner.style.transform = `translate3d(${cxTxt}px,${cyTxt}px,0)`;
+
+      requestAnimationFrame(tick);
+    }
+
+    // 접근성: 모션 최소화 설정 존중
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches){
+      s.addEventListener('mousemove', onMove, {passive:true});
+      s.addEventListener('mouseenter', onMove, {passive:true});
+      s.addEventListener('mouseleave', onLeave, {passive:true});
+      tick();
+    }
+  })();
+</script>
+
+  <script>
+(function(){
+  const wrap   = document.getElementById('heroVideoWrap');
+  const video  = document.getElementById('heroVideo');
+  const bMute  = document.getElementById('btnMute');
+  const bPlay  = document.getElementById('btnPlay');
+  const iPlay  = document.getElementById('iconPlay');
+  const iPause = document.getElementById('iconPause');
+  if(!wrap || !video || !bMute || !bPlay) return;
+
+  // 컨트롤 노출 타이머
+  let hideTimer;
+  function showControls(){
+    wrap.classList.add('show-controls');
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(()=>wrap.classList.remove('show-controls'), 1800);
+  }
+
+  // 사용자 인터랙션에 반응
+  ['mousemove','mouseenter','wheel','touchstart'].forEach(evt=>{
+    wrap.addEventListener(evt, showControls, {passive:true});
+  });
+
+  // 음소거 토글
+  function syncMuteLabel(){
+    bMute.setAttribute('aria-pressed', String(video.muted));
+    bMute.setAttribute('aria-label', video.muted ? '음소거 해제' : '음소거');
+  }
+  bMute.addEventListener('click', ()=>{
+    try{ video.play(); }catch(e){}
+    video.muted = !video.muted;
+    syncMuteLabel();
+    showControls();
+  });
+  syncMuteLabel();
+
+  // 재생/일시정지 토글
+  function setPlayingUI(isPlaying){
+    // 아이콘 전환
+    iPlay.style.display  = isPlaying ? 'none' : 'block';
+    iPause.style.display = isPlaying ? 'block' : 'none';
+    bPlay.setAttribute('aria-pressed', String(!isPlaying));
+    bPlay.setAttribute('aria-label', isPlaying ? '일시정지' : '재생');
+  }
+  bPlay.addEventListener('click', async ()=>{
+    if (video.paused) {
+      try{ await video.play(); }catch(e){}
+      setPlayingUI(true);
+    } else {
+      video.pause();
+      setPlayingUI(false);
+    }
+    showControls();
+  });
+  // 로드 상태에 맞춰 UI 초기화
+  setPlayingUI(!video.paused);
+
+  // 화면에 들어오면 잠깐 보여주기
+  const io = new IntersectionObserver(([e])=>{
+    if (e.isIntersecting) showControls();
+  }, {threshold: 0.3});
+  io.observe(wrap);
+})();
+</script>
+<script>
+(() => {
+  const imgs = document.querySelectorAll('img[src="2222.png"], img[src="222.png"]');
+  imgs.forEach((el, i) => {
+    el.classList.add('reveal-init');
+    el.style.transitionDelay = (i * 150) + 'ms'; // 순서대로 딜레이
+  });
+
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    imgs.forEach(el => el.classList.add('reveal-in'));
+    return;
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('reveal-in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  imgs.forEach(el => io.observe(el));
+})();
+</script>
+
+</body>
+</html>

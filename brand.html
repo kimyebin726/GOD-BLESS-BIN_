@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="icon" type="image/png" href="gbb.png" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1024">
+  <title>GBB</title>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css" rel="stylesheet">
+    <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet"
+  >
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { font-size: 16px;min-width: 1024px;   overflow-x: hidden; }
+   body {min-width: 1024px;  overflow-x: hidden;
+  font-family: 'Pretendard', sans-serif; background: #FD4F19; color: #000; 
+  background: url('bg.jpg') no-repeat center center;
+  background-size: cover; /* 화면 크기에 맞춰 꽉 채우기 */
+}
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+   header {
+  background: #000;}
+
+.header-right {
+  gap: 0.5rem;            /* 아이콘–텍스트 간 간격도 조금 좁힙니다 */
+  font-size: 0.75rem;     /* 텍스트 크기를 0.875rem → 0.75rem으로 축소 */
+}
+.wrapper {
+  width: 1024px;      /* 또는 원하는 픽셀 값 */
+  margin: 0 auto;     /* 가운데 정렬 */
+}
+/* 로그인·장바구니 아이콘 크기 조정 */
+.header-right .icon {
+  width: 16px;            /* 기존 20px → 16px */
+  height: 16px;           /* 기존 20px → 16px */
+}
+
+/* (선택) 아이콘과 텍스트가 너무 붙어 있다면 여유 주기 */
+.header-right a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;           /* 아이콘과 텍스트 사이 */
+}
+
+.header-container {
+  max-width: 1920px;
+  margin: 0 auto;
+  position: relative;
+  padding: 1.5rem 3rem 0.5rem; /* 위쪽 padding을 1.5rem로 늘려 상단 여백 확보 */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-center img {
+  height: 36px;  /* 원하는 크기로 조절 */
+  width: auto;
+}
+    .icon { width: 16px; height: 16px; vertical-align: middle; margin-right: 4px; filter: none; }
+    .header-left { display: flex; align-items: center; gap: 8px; }
+    .header-left img.search-icon { width: 20px; height: 20px; filter: none; }
+    .header-left input[type=search] { width: 200px; padding: 0.4rem; border: none; border-bottom: 1px solid #fff; background: transparent; color: #fff; font-size: 0.875rem; }
+    .header-center { position: absolute; left: 50%; transform: translateX(-50%); }
+    .header-center img { height: 48px; width: auto; }
+    .header-right { display: flex; align-items: center; gap: 1rem; font-size: 0.875rem; color: #fff; }
+
+    /* Navigation */
+ 
+    /* Navigation */
+    nav { background: #000; }
+    .nav-container { max-width: 1920px; margin: 0 auto; text-align: center; padding: 0.75rem 0; }
+    .nav-container ul { display: inline-flex; gap: 2.5rem; }
+    .nav-container li {
+  color: #fff;
+  font-size: 0.75rem; /* 한 단계 작게 */
+  letter-spacing: 0.08em; /* 간격도 조금 줄임 */
+  cursor: pointer;
+  transition: opacity .2s;
+}/* nav 컨테이너는 그대로 유지 */
+.nav-container { display:flex; justify-content:center; align-items:center; gap:2rem; }
+.nav-left, .nav-right { display:flex; list-style:none; margin:0; padding:0; gap:2.5rem; }
+.nav-right { gap:3rem; }
+
+/* 링크를 반드시 block으로(클릭영역 확보) */
+.nav-container a{
+  display:block;
+  padding: .25rem 0;           /* 세로 여유 */
+  color:#fff;
+  text-decoration:none;
+}
+
+/* hover/active */
+.nav-container a:hover{ opacity:.75; }
+
+/* 키보드 포커스 표시 */
+.nav-container a:focus-visible{
+  outline:2px solid #E6C38B;
+  outline-offset:2px;
+  border-radius:2px;
+}
+
+/* 가운데 구분선이 클릭 방해하지 않도록 */
+.divider{
+  width:1px; height:16px; background:#fff;
+  pointer-events:none;
+}
+
+.nav-gap {
+  height: 10px; /* 원하는 여백 높이 */
+  background-color: #000; /* 검은색 */
+}
+    /* Main: 브랜드 소개 */
+    main { max-width: 1200px; margin: 3rem auto; padding: 0 1rem; }
+    .brand-intro { text-align: center; margin-bottom: 4rem; }
+    .brand-intro h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+    .brand-intro p { font-size: 1rem; line-height: 1.6; color: #333; }
+
+    /* 예시 콘텐츠 스타일 */
+    .brand-story { display: grid; gap: 2rem; }
+    .brand-story img { width: 100%; border-radius: 8px; }
+    .brand-story .story-item { display: flex; gap: 1.5rem; }
+    .brand-story .story-item:nth-child(even) { flex-direction: row-reverse; }
+    .story-item .text { flex: 1; }
+    .story-item .text h3 { font-size: 1.5rem; margin-bottom: .5rem; }
+    .story-item .text p { font-size: 1rem; line-height: 1.6; color: #444; }
+    .brand-hero {
+      width: 100%;
+      padding: 4rem 0;  /* 위아래 크게 여백 */
+      text-align: center;
+      position: relative;
+    }
+
+    .brand-hero img {
+      width: 40%;       /* 화면 너비의 40% */
+  max-width: none;  /* 픽셀 제한을 없앰 */
+  height: auto;
+  display: inline-block;
+   margin-top: 3rem; 
+    }
+.brand-hero::before {
+  content: "";
+  position: absolute;
+  top: 70%;           /* ← 50% → 60%로 조정 */
+  left: 50%;
+  width: 140%;    
+  height: 140%;
+  transform: translate(-50%, -50%);
+  background: url('me.jpg') center/cover no-repeat;
+  opacity: 0.3;
+  z-index: 0;
+
+}
+
+/* 2) 메인 이미지(hero-main)는 z-index:1 (중간) */
+.brand-hero .hero-main {
+  position: relative;
+  z-index: 1;
+    overflow-x: hidden;
+   width: 40%;      
+  max-width: none;
+  display: inline-block;
+
+}
+
+/* 3) 텍스트 PNG(hero-k, hero-en)는 z-index:2 (맨 앞으로) */
+.brand-hero .hero-k,
+.brand-hero .hero-en {
+  position: absolute;  /* 절대위치 유지 */
+  z-index: 2;          /* 항상 가장 위 */
+}
+
+/* (이미 위치 설정하셨으니 값만 남겨두시면 됩니다) */
+.hero-k { top: 30%; left: 5%; }
+.hero-en{ top: 20%; right: 5%; }
+@keyframes fadeInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px) translateY(20px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scale(1);
+  }
+}
+
+/* 초기 상태 */
+.brand-hero .hero-k,
+.brand-hero .hero-en {
+  opacity: 0;
+}
+
+/* animate 클래스가 붙었을 때 실행 */
+.brand-hero.animate .hero-k,
+.brand-hero.animate .hero-en {
+  animation: fadeInFromLeft 1s ease-out forwards;
+}
+.hero-copy .en-small {
+  font-size: 0.9375rem;
+  margin-bottom: 2.5rem;
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+}
+.hero-copy {
+  max-width: 800px;
+  margin: 3rem auto 6rem;   /* 위아래 여백 넉넉히 */
+  text-align: center;
+  color: #000;              /* 필요에 따라 #fff 로 조절 */
+  line-height: 1.6;
+}
+
+/* 큰 문장(인용문) 스타일 */
+.hero-copy .kr-large {
+  font-size: 1.125rem;
+  font-style: italic;
+  margin-bottom: 3rem; /* 기존 2rem → 3rem으로 확대 */
+}
+
+.hero-copy .en-large {
+  /* … */
+  font-family: 'Playfair Display', serif;
+}
+
+.hero-copy .en-small {
+  font-size: 0.9375rem;
+  margin-bottom: 2.5rem;
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+}
+
+.hero-copy .en-large {
+  font-size: 1.125rem;
+  font-style: italic;
+  margin-bottom: 3rem; 
+  font-family: 'Playfair Display', serif;
+  /* 기존 2rem → 3rem으로 확대 */
+}
+
+.hero-copy .kr-small {
+  font-size: 0.9375rem;
+  margin-bottom: 2.5rem; /* 기존 1.5rem → 2.5rem으로 확대 */
+  color: #fff;
+}
+
+.hero-copy .en-small {
+  font-size: 0.9375rem;
+  margin-bottom: 2.5rem; /* 기존 1.5rem → 2.5rem으로 확대 */
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+}
+.hero-copy {
+  max-width: 800px;
+  margin: 3rem auto 6rem;
+  text-align: center;
+  color: #000;              /* 기본은 검정 */
+  line-height: 1.6;
+}
+
+/* … 위에 kr-large, en-large, kr-small 정의 … */
+
+/* 마지막 영어 문단(overall) */
+.hero-copy .en-small {
+  font-size: 0.9375rem;
+  margin-bottom: 2.5rem;
+  font-family: 'Playfair Display', serif; 
+  color: #fff !important;   /* 흰색을 강제 적용 */
+}
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap');
+
+.history-hero {
+  background: #000;
+  color: #fff;
+  text-align: center;
+  padding: 6rem 1rem;
+}
+
+.history-hero h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;      /* Semibold */
+  font-size: 2.5rem;
+  margin-bottom: 4rem;
+}
+
+
+.history-graphic {
+  display: block;
+  width: 500px;       /* 원하는 크기로 조절 */
+  max-width: 90%;     /* 반응형 대응 (뷰포트 너비의 90%까지 커질 수 있게) */
+  margin: 0 auto 4rem;
+}
+
+.history-graphic img {
+  display: block;
+  width: 100%;        /* 부모 width에 맞춰 늘어납니다 */
+  height: auto;
+}
+
+}
+.history-text, 
+.history-text p {
+  /* 기존에 설정된 letter-spacing 을 초기화 */
+  letter-spacing: normal;
+  text-align: center;       /* 중앙 정렬 */
+  max-width: 800px;          /* 필요에 따라 너비 조절 */
+  margin: 0 auto;            /* 좌우 마진 자동으로 */
+  line-height: 1.6;          /* 줄 간격 */
+}
+
+.history-copy {
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+.history-copy .kr-copy {
+  margin-bottom: 3rem;
+  color: #fff;
+  font-size: 0.9375rem;
+}
+
+.history-copy .en-copy {
+  margin-top: 3rem;
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+.story-sections {
+  background: #000;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+    font-family: 'Pretendard', sans-serif;
+}
+
+/* 기본: 왼쪽 이미지, 오른쪽 텍스트 */
+.story-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+/* .reverse 클래스가 붙으면 순서 뒤집기 */
+.story-item.reverse {
+  flex-direction: row-reverse;
+}
+
+.story-media {
+  flex: 0 0 45%;        /* 이미지 영역 고정 폭 */
+}
+.story-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+   padding: 0 2rem; 
+}
+.story-sections .story-item:nth-child(odd) .story-text {
+  text-align: right;
+}
+
+/* 2) 짝수 섹션(2,4,6…): 이미지 오른쪽 • 텍스트 왼쪽 */
+.story-sections .story-item:nth-child(even) .story-text {
+  text-align: left;
+}
+.story-text {
+  flex: 0 0 45%;        /* 텍스트 영역 고정 폭 */
+  color: #fff;
+  padding: 1rem;
+  box-sizing: border-box;
+  line-height: 1.5;
+}
+
+.story-text h3 {
+  font-family:  'Pretendard', sans-serif;
+  font-weight: 600;     /* semibold */
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.story-text p {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+#loader {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #000;
+    overflow: hidden;
+    z-index: 9999;
+  }
+
+  /* ─── 중앙 민들레 이미지 ─────────────────────────────── */
+  .dandelion {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 200px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  /* ─── 홀씨 기본 스타일 & 애니메이션 ─────────────────── */
+  .seed {
+    position: absolute;
+    top: 40%; left: 50%;
+    width: 30px;
+    transform-origin: center;
+    opacity: 0;
+    animation: flyUp 4s ease-out forwards;
+    pointer-events: none;
+  }
+  @keyframes flyUp {
+    0% {
+      opacity: 1;
+      transform: translate(0,0) scale(1) rotate(0deg);
+    }
+    100% {
+      opacity: 0;
+      transform:
+        translate(var(--dx), var(--dy))
+        scale(0.4)
+        rotate(var(--rot));
+    }
+  }
+
+  /* ─── 실제 콘텐츠 숨기기 ───────────────────────────── */
+  #content {
+    visibility: hidden;
+  }
+footer::before {
+  content:"";
+  display:block;
+  width:100%;
+  height:1px;
+  margin:80px 0 40px;
+  background:rgba(255,255,255,.15); /* 은은한 회색빛 */
+}
+
+/* Footer 전체 여백 & 배경 */
+footer {
+  background: #000;
+  padding: 6rem 3rem;   /* 위아래 넉넉히 */
+  color: #fff;
+}
+
+/* 로고 */
+.footer-top .footer-logo {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.footer-top .footer-logo img {
+  height: 64px; /* 원하는 크기 */
+  width: auto;
+}
+
+/* 링크 영역 정렬 */
+.footer-top .footer-links {
+  display: flex;
+  justify-content: space-evenly; /* 네 컬럼을 균등 분배 */
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+/* 각 컬럼 제목 (col-title) */
+.col-title {
+  font-size: 1rem;
+  font-weight: 400;      /* 레귤러 */
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+/* 리스트 항목 */
+.footer-col ul li {
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 100;      /* 레귤러 */
+  color: #fff;            /* 불투명 화이트 */
+}
+
+.footer-divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  margin: 3rem 0;
+}
+
+/* 바닥글 (footer-bottom) */
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  opacity: 0.6;
+}
+.footer-bottom .footer-copy {
+  color: #fff;
+  opacity: 0.6;
+}
+.footer-bottom .social-icons {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; 
+   margin-right: 20px;            /* 아이콘 간 간격 */
+}
+
+.footer-bottom .social-icons img.footer-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+  </style>
+</head>
+<body><div id="loader">
+  <img src="dandelion.png" class="dandelion" alt="dandelion"/>
+  <!-- 아래 스크립트가 <img class="seed"> 요소들을 자동 생성합니다 -->
+</div>
+
+<!-- 기존 페이지 전체를 이 안으로 감싸세요 -->
+<div id="content">
+  <header>
+    <div class="header-container">
+      <div class="header-left">
+        <img class="search-icon" src="b.png" alt="검색">
+        <input type="search" placeholder="검색">
+      </div>
+      <div class="header-center">
+      <a href="index.html" class="logo">
+  <img src="logo.png" alt="GBB">
+</a>
+      </div>
+      <div class="header-right">
+        <a href="#"><img class="icon" src="c.png" alt="로그인"></a>
+        <a href="#"><img class="icon" src="d.png" alt="장바구니"></a>
+      </div>
+    </div>
+   <nav>
+  <div class="nav-container">
+    <ul class="nav-left">
+      <li><a href="high.html">하이주얼리</a></li>
+      <li><a href="jewelry.html">주얼리</a></li>
+      <li><a href="watch.html">시계</a></li>
+      <li><a href="accessory.html">액세서리</a></li>
+      <li><a href="gift.html">기프트</a></li>
+    </ul>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <ul class="nav-right">
+      <li><a href="brand.html">GBB 소개</a></li>
+      <li><a href="news.html">새로운 소식</a></li>
+      <li><a href="history.html">GBB 컬렉션 히스토리</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+  </header>
+
+<section class="brand-hero">
+      <img class="hero-k"    src="k.png"  alt="김 예빈" />
+  <img class="hero-en"   src="en.png" alt="Kim Ye Bin" />
+  <img class="hero-main" src="mee.png" alt="브랜드 소개 이미지" />
+
+</section>
+
+ 
+  <div class="hero-copy">
+    <p class="kr-large"><br><br><br>
+      “공주 김禮, 밝을 叡, 빛날 䨻. 세상에서 가장 빛나고<br>
+      밝은 사람으로 살아가라는 저희 부모님의 소망처럼 GBB는<br>
+      크리스천으로 세상에 빛을 밝히고, 축복을 전하는 소명을 갖고 있습니다.”
+    </p>
+    <p class="en-large">
+      “ ‘Princess’ Kim (金), ‘Bright’ Ye (叡), and ‘Radiant’ Bin (䨻).<br>
+      Just as my parents wished—for me to live as the brightest, most luminous person in the world—<br>
+      GBB, as a Christian brand, embraces the calling to shine light into the world and to spread blessings.”
+    </p>
+
+    <p class="kr-small">
+      GBB는 민들레가 또 하나의 꽃을 피울 수 있는 수많은 홀씨를 뿌리는 것과 같이,<br>
+      하나님의 축복을 세상 곳곳에 널리 알리는 크리스천들을 위한 주얼리 브랜드입니다.<br>
+      전능하신 하나님의 작품이 우리는 아주 완벽하고 소중한 작품이자 씨앗을 품고 있는 민들레와 같습니다.<br>
+      바람이 없으면 민들레 씨앗은 흩어지지 못하듯,<br>
+      하나님의 보이지 않은 손길을 통해서만 날아가는 하나의 홀씨이자 민들레로 살아가는<br>
+      크리스천들에게 일상 속에서도 주님을 묵상하고, 우리의 사명을 다하며 살아가 수 있도록<br>
+      아름답고 뜻 깊은 주얼리를 만듭니다.
+    </p>
+
+<p class="en-small"
+   style=" font-family: 'Playfair Display', serif;
+  font-style: italic;
+          color: #fff !important;
+          font-size: 0.9375rem;
+          margin-bottom: 2.5rem;">
+  GBB is a Christian jewelry brand inspired by the dandelion’s countless seeds that spark new blooms—<br>
+  just as believers carry God’s blessings to every corner of the earth.<br>
+  Made by the Almighty, we are perfect and precious, like a dandelion head full of seeds.<br>
+  Without the wind, seeds cannot travel; likewise, Christians live as dandelion seeds, borne by God’s unseen hand.<br>
+  We craft elegant, meaningful jewelry to inspire believers to meditate on the Lord and walk in their calling each day.
+</p>
+<img src="p.png" alt="decorative separator"
+     style="
+       display: block;
+       margin: 7rem auto;
+       max-width: 800px;
+       width: 100%;
+       /* ➔ 오른쪽으로 20px 이동 */
+       transform: translateX(15px);
+     ">
+  </div>
+</section>
+
+<section class="history-hero">
+  <h2>GBB’S HISTORY</h2>
+
+  <div class="history-graphic">
+    <img src="pp.jpg" alt="GBB History Graphic">
+  </div>
+
+  <div class="history-copy">
+    <p class="kr-copy">
+      GBB 창업자 김예빈은 30여년 동안 주얼리 공예와 가공을 하신 부모님의 영향을 많이 받았습니다.<br>
+30여년을 공방에서 다양한 보석과 액세서리를 만들어 내시는 부모님을 보고 금속공예를 배우면서 주얼리에 대한 이해와 시각의 폭을 넓혔습니다.
+부모님이 주신 유산은 디자인에 대한 능력 뿐만이 아닙니다.
+가장 중요한 하나님에 대한 신앙심 또한 물려주셨습니다.
+아버지와 어머니는 사업이 힘들던 시기에도 항상 포기하지 않으시고
+그저 믿음으로만 성실하게 30여년을 하루도 빠짐없이 공부하시고 일하셨습니다.
+GBB는 부모님의 기술과 경험에 신앙을 담은 디자인을 더한 2세대에 걸친 브랜드라고 할 수 있습니다. 
+    </p>
+    <p class="en-copy">
+      GBB founder Yebin Kim was profoundly influenced by her parents, who devoted over thirty years to jewelry craftsmanship and fabrication.
+Watching them handcraft a diverse array of gemstones and accessories in their workshop for more than three decades,
+ she learned metalworking and, in doing so, expanded both her understanding of and perspective on jewelry.
+The legacy her parents passed on is not limited to design skills—most importantly, they also bequeathed a deep faith in God.
+Even during the toughest times in their business, her father and mother never gave up. 
+Relying solely on faith, they studied and worked diligently every single day for over thirty years without fail.
+GBB is, in essence, a two-generation brand that fuses her parents’ technical mastery and experience with designs imbued with faith.
+
+    </p>
+  </div>
+</section>
+<section class="story-sections">
+  <!-- 1. 좌측 이미지 + 우측 텍스트 -->
+  <div class="story-item">
+    <div class="story-media">
+      <img src="aa.jpg" alt="제작 과정 1">
+    </div>
+    <div class="story-text">
+      <h3>기업 마인드</h3>
+      <p>
+        인간은 하나님(GOD)의 작품(WORK OF ART)입니다.<br>
+        God Bless Bin은 ‘GBB’를 통해 모든 고객분들이 본인의 가치를<br>
+        일상에서도 깨닫길 원하기에 저희는 우리의 고객을 이 세상의 가장 하나님이고<br>
+        특별한 작품처럼 다룬다는 기업 마인드를 정하였습니다.
+      </p><br>
+    </div>
+  </div>
+
+  <!-- 2. 좌측 텍스트 + 우측 이미지 -->
+  <div class="story-item reverse">
+    <div class="story-media">
+      <img src="bb.jpg" alt="제작 과정 2">
+    </div>
+    <div class="story-text">
+      <h3>브랜드 핵심 가치</h3>
+      <p>
+        민들레는 ‘축복(BLESS)’을 의미합니다.<br>
+        바람을 통해서만 흩날리는 민들레 씨앗과 같이 크리스천들은<br>
+        하나님의 손길을 통해서만 생명을 거두고, 축복을 전할 수 있습니다.<br>
+        또한, 민들레는 척박한 환경 속에서도 잘 자라듯 축복도 어떤 곳에서도 자랄 수 있습니다.<br>
+        따라서 GBB의 브랜드 핵심 가치는 민들레의 순환이라 할 수 있습니다.
+      </p>
+    </div>
+  </div>
+
+  <!-- 3. 좌측 이미지 + 우측 텍스트 -->
+  <div class="story-item">
+    <div class="story-media">
+      <img src="cc.jpg" alt="제작 과정 3">
+    </div>
+    <div class="story-text">
+      <h3>브랜드 차별점</h3>
+      <p>
+       ‘축복’은 기계가 만들 수 없는 감정이기에 GBB는 ‘장인의 손’으로 제작합니다.
+ ‘GBB’의 모든 작품은 ‘핸드메이드’를 고집합니다. 따라서 GBB의 
+컬랙션은 자연스러운 의도적이고 불규칙한 보섯 셋팅과 마무리를 추구하며
+고객이 원하는 경우 창조자의 지문각인 또는 고객의 지문 각인 또는 이니셜 각인으로 각 작품의 희소성과 가치성을 높이는 데에 차별성을 둡니다.
+
+      </p>
+    </div>
+  </div>
+
+  <!-- 4. 좌측 텍스트 + 우측 이미지 -->
+  <div class="story-item reverse">
+    <div class="story-media">
+      <img src="dd.jpg" alt="제작 과정 4">
+    </div>
+    <div class="story-text">
+      <h3>브랜드 비전</h3>
+      <p>
+      
+GBB는 크리스천들에게 일상에서의 축복의 의미를 상기시켜, 
+각 사람이 자신이있는 곳에서 또하나의 축복의 씨앗이 되는 것을 도울 것입니다.
+
+GBB의 주얼리를 통해서는 고객들이 삶 속에서 하나님의 축복을 느낄 수 있도록,
+GBB의브랜드를 통해서 세계 다양한 곳에 축복과 좋은 영향을 끼칠 수 있도록,
+GBB의 기업을 통해서는 척박한 환경에 도움의 손길을 전할 수 있도록 하는 것이
+GBB의 궁극적이고 미래에 계속해서 지향할 비전입니다.
+      </p>
+    </div>
+  </div>
+</section>
+
+  <footer>
+    <div class="footer-top">
+      <!-- 1) 로고를 텍스트 대신 img 로 치환 -->
+      <div class="footer-logo">
+        <img src="logo.png" alt="GBB 로고">
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-col">
+          <p class="col-title">GOD BLESS BIN 브랜드 스토리보기</p>
+          <ul>
+            <li>첫번째 컬렉션</li>
+            <li>반지</li>
+            <li>목걸이</li>
+            <li>팔찌</li>
+            <li>귀걸이</li>
+            <li>시계</li>
+            <li>비녀</li>
+            <li>패션웨어</li>
+            <li>선물세트</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <p class="col-title">온라인 서비스</p>
+          <ul>
+            <li>GBB 멤버십 보기</li>
+            <li>결제 방법</li>
+            <li>배송 옵션</li>
+            <li>마이 페이지</li>
+            <li>반품</li>
+            <li>케어 & 서비스</li>
+            <li>Q&A</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <p class="col-title">매장 서비스</p>
+          <ul>
+            <li>근처 매장 찾기</li>
+            <li>매장 방문 예약</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <p class="col-title">GBB</p>
+          <ul>
+            <li>채용 공고</li>
+            <li>법률 성명</li>
+            <li>개인정보처리방침</li>
+            <li>Report to Society</li>
+            <li>위조품 근절</li>
+            <li>재무 실적</li>
+            <li>지속가능연계채권 업데이트</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <hr class="footer-divider">
+ <div class="footer-bottom">
+    <div>Change location and language 한국어 - Korean</div>
+    <div class="social-icons">
+      <!-- 기존 소셜링크들… -->
+      <a href="#" class="instagram"></a>
+      <a href="#" class="facebook"></a>
+      <a href="#" class="youtube"></a>
+      <a href="#" class="linkedin"></a>
+      <a href="#" class="kakao"></a>
+
+      <!-- 새로 추가 -->
+      <a href="#"><img src="e.png" alt="Icon E" class="footer-icon"></a>
+      <a href="#"><img src="f.png" alt="Icon F" class="footer-icon"></a>
+      <a href="#"><img src="g.png" alt="Icon G" class="footer-icon"></a>
+      <a href="#"><img src="h.png" alt="Icon H" class="footer-icon"></a>
+      <a href="#"><img src="i.png" alt="Icon I" class="footer-icon"></a>
+    </div>
+
+  </div>
+  </footer>
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const hero = document.querySelector('.brand-hero');
+  const observer = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      hero.classList.add('animate');
+      observer.disconnect();
+    }
+  }, { threshold: 0.3 });
+  observer.observe(hero);
+});
+</script>
+</div>  <!-- #content 닫는 태그 -->
+
+<script>
+  (function() {
+    const loader = document.getElementById('loader');
+    const SEED_COUNT = 10;
+
+    for (let i = 0; i < SEED_COUNT; i++) {
+      const seed = document.createElement('img');
+      seed.src = 'seed.png';
+      seed.className = 'seed';
+      const dx  = (Math.random() - 0.5) * 200 + 'px';
+      const dy  = -(150 + Math.random() * 200) + 'px';
+      const rot = (Math.random() - 0.5) * 60 + 'deg';
+      seed.style.setProperty('--dx', dx);
+      seed.style.setProperty('--dy', dy);
+      seed.style.setProperty('--rot', rot);
+      seed.style.animationDelay = (Math.random() * 1.0) + 's';
+      loader.appendChild(seed);
+    }
+
+    window.addEventListener('load', () => {
+      loader.style.transition = 'opacity 0.8s ease';
+      loader.style.opacity = '0';
+      loader.addEventListener('transitionend', () => {
+        loader.remove();
+        document.getElementById('content').style.visibility = 'visible';
+      });
+    });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GBB</title>
+  <style>
+    /* ─── 1. 로더 전체영역 ───────────────────────────────── */
+    #loader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #000;       /* 배경색 자유롭게 변경 */
+      overflow: hidden;
+      z-index: 9999;
+    }
+
+    /* ─── 2. 민들레 이미지를 화면 중앙에 고정 ─────────────── */
+    .dandelion {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 200px;          /* 이미지 크기 조절 */
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    /* ─── 3. 홀씨 기본 스타일 ─────────────────────────────── */
+    .seed {
+      position: absolute;
+      top: 40%; left: 50%;
+      width: 30px;           /* 홀씨 크기 */
+      transform-origin: center;
+      opacity: 0;
+      animation: flyUp 4s ease-out forwards;
+      pointer-events: none;
+    }
+
+    /* ─── 4. 홀씨 비행 애니메이션 ─────────────────────────── */
+    @keyframes flyUp {
+      0% {
+        opacity: 1;
+        transform: translate(0,0) scale(1) rotate(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform:
+          translate(var(--dx), var(--dy))
+          scale(0.4)
+          rotate(var(--rot));
+      }
+    }
+
+    /* ─── 5. 실제 콘텐츠 숨기기 ───────────────────────────── */
+    #content {
+      visibility: hidden;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── 로더 영역 ───────────────────────────────────────── -->
+  <div id="loader">
+    <img src="dandelion.png" class="dandelion" alt="dandelion"/>
+    <!-- JS에서 seed 요소를 자동으로 추가합니다 -->
+  </div>
+
+  <!-- ─── 실제 페이지 콘텐츠 ──────────────────────────────── -->
+  <div id="content">
+    <!-- 여기에 기존 페이지 구조를 넣으세요 -->
+    <header>…</header>
+    <main>…</main>
+    <footer>…</footer>
+  </div>
+
+  <script>
+    (function() {
+      const loader = document.getElementById('loader');
+      const SEED_COUNT = 10;  // 홀씨 개수
+
+      // 홀씨 생성
+      for (let i = 0; i < SEED_COUNT; i++) {
+        const seed = document.createElement('img');
+        seed.src = 'seed.png';
+        seed.className = 'seed';
+
+        // 위로 퍼져나가도록 랜덤 거리·방향·회전값 설정
+        const dx   = (Math.random() - 0.5) * 200 + 'px';   // 좌우 ±50px
+        const dy   = -(150 + Math.random() * 200) + 'px'; // 위로 150~300px
+        const rot  = (Math.random() - 0.9) * 300 + 'deg';   // 회전 ±30°
+
+        seed.style.setProperty('--dx', dx);
+        seed.style.setProperty('--dy', dy);
+        seed.style.setProperty('--rot', rot);
+
+        // 자연스러운 시간차를 위한 지연
+        seed.style.animationDelay = (Math.random() * 1.0) + 's';
+
+        loader.appendChild(seed);
+      }
+
+      // 페이지 로드 완료 시 로더 페이드아웃 후 제거
+      window.addEventListener('load', () => {
+        loader.style.transition = 'opacity 0.9s ease';
+        loader.style.opacity = '0';
+        loader.addEventListener('transitionend', () => {
+          loader.remove();
+          document.getElementById('content').style.visibility = 'visible';
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
