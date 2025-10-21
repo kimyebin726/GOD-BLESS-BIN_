@@ -69,9 +69,37 @@
     .footer-bottom{display:flex;justify-content:space-between;align-items:center;font-size:.75rem;opacity:.6}
     .footer-bottom .social-icons{display:flex;align-items:center;gap:.75rem;margin-right:20px}
     .footer-bottom .social-icons img.footer-icon{width:24px;height:24px;object-fit:contain}
+
+    #loader{
+      position:fixed;
+      inset:0;
+      background:#000;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      z-index:9999;
+    }
+    .dandelion{width:200px;pointer-events:none;}
+    .seed{
+      position:absolute;
+      top:40%;left:50%;
+      width:30px;
+      transform-origin:center;
+      opacity:0;
+      animation:flyUp 4s ease-out forwards;
+      pointer-events:none;
+    }
+    @keyframes flyUp{
+      0%{opacity:1;transform:translate(0,0) scale(1) rotate(0)}
+      100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.4) rotate(var(--rot))}
+    }
   </style>
 </head>
 <body>
+   <div id="loader">
+    <img src="dandelion.png" class="dandelion" alt="dandelion" />
+  </div>
   <header>
     <div class="header-container">
       <div class="header-left">
@@ -261,6 +289,34 @@
             card.style.display = (y==='all' || card.dataset.year===y) ? '' : 'none';
           });
         });
+      });
+    })();
+  </script>
+  
+  <script>
+    // 민들레 홀씨 애니메이션 + 자동 이동
+    (function(){
+      const loader=document.getElementById('loader'), SEED_COUNT=10;
+      for(let i=0;i<SEED_COUNT;i++){
+        const s=document.createElement('img');
+        s.src='seed.png'; s.className='seed';
+        const dx=(Math.random()-0.5)*200+'px';
+        const dy=-(150+Math.random()*200)+'px';
+        const rot=(Math.random()-0.5)*60+'deg';
+        s.style.setProperty('--dx',dx);
+        s.style.setProperty('--dy',dy);
+        s.style.setProperty('--rot',rot);
+        s.style.animationDelay=(Math.random()*1)+'s';
+        loader.appendChild(s);
+      }
+
+      // 3초 후 뉴스 페이지로 이동
+      window.addEventListener('load',()=>{
+        loader.style.transition='opacity 1s ease';
+        loader.style.opacity='0';
+        setTimeout(()=>{
+          window.location.href='news.html';
+        },2500);
       });
     })();
   </script>
