@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GBB</title>
+  <link rel="icon" type="image/png" href="gbb.png" />
+
+  <!-- Fonts -->
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/gh/linecorp/line-seed-font/css/LineSeedKR.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+/* ================== Design Tokens ================== */
+:root{
+  --bg:#000;
+  --text:#F6F1E6;
+  --hairline:rgba(246,241,230,.45);
+  --tabsH:58px;
+}
+
+/* ================== Reset / Base ================== */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);font-family:'Pretendard',system-ui,-apple-system,sans-serif}
+a{color:inherit;text-decoration:none}
+img,video{display:block;max-width:100%;height:auto}
+
+/* ================== Header / Nav ================== */
+header{
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  background:transparent;
+  transition: background-color .35s ease, transform .35s ease, opacity .35s ease;
+}
+header.nav-hidden{ transform: translateY(-100%); opacity:0; pointer-events:none; }
+header.nav-visible{ transform: translateY(0); opacity:1; pointer-events:auto; }
+header:hover, header.nav-visible{ background: rgba(0,0,0,.92); }
+
+.header-container{
+  max-width:1920px; margin:0 auto; position:relative;
+  padding:1.25rem 3rem .25rem; display:flex; align-items:center; justify-content:space-between;
+}
+.header-left{display:flex; align-items:center; gap:.5rem}
+.header-left input[type=search]{
+  width:200px; padding:.45rem .25rem; border:none; border-bottom:1px solid var(--hairline);
+  background:transparent; color:var(--text); font-size:.875rem;
+}
+.header-center{position:absolute; left:50%; transform:translateX(-50%)}
+.header-center img{height:44px; width:auto}
+.header-right{display:flex; align-items:center; gap:.75rem}
+.icon{width:18px; height:18px}
+
+nav.main{
+  background:transparent
+}
+.nav-container{
+  max-width:1920px; margin:0 auto; padding:.75rem 0;
+  display:flex; justify-content:center; align-items:center; gap:2rem;
+}
+.nav-left,.nav-right{display:flex; gap:2.25rem; list-style:none}
+.nav-container a{display:block; padding:.25rem 0; letter-spacing:.08em; font-size:.78rem}
+.nav-container a:hover{opacity:.7}
+.divider{width:1px; height:16px; background:var(--hairline); pointer-events:none}
+
+/* ================== Category Tabs ================== */
+.cat-tabs{
+  position:fixed; left:0; right:0;
+  top: calc( (document.documentElement ? 0 : 0) + 76px ); /* JS에서 보정 */
+  z-index:900;
+  display:flex; gap:2.2rem; justify-content:center;
+  padding:.9rem 1.2rem;
+  background: rgba(0,0,0,.66);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  opacity:0; transform: translateY(-8px);
+  pointer-events:none;
+  transition: opacity .25s ease, transform .25s ease, top .32s ease;
+}
+.cat-tabs.is-visible{ opacity:1; transform:none; pointer-events:auto; }
+.cat-tabs a{font-size:.86rem; letter-spacing:.12em}
+#sec-packages, #sec-inside, #sec-card{ scroll-margin-top: calc(120px + var(--tabsH)); }
+
+/* ================== Hero ================== */
+.hero{
+  position:relative; width:100%; height:100vh; overflow:hidden; background:#000;
+}
+.hero img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.hero .brand-mark{
+  position:absolute; top:28px; left:50%; transform:translateX(-50%);
+  font-family:'Playfair Display','Eulyoo1945',serif;
+  font-size:clamp(28px,3.6vw,56px); font-weight:600; color:#fff; letter-spacing:.18em;
+  text-shadow:0 2px 8px rgba(0,0,0,.35);
+}
+
+/* ================== Intro Block ================== */
+.intro{
+  background:#0b0b0b; color:#f6f6f6; text-align:center; padding:6.5rem 2rem;
+}
+.intro h1{
+  font-family:'Playfair Display','Eulyoo1945',serif; font-weight:700;
+  font-size:clamp(28px,4vw,56px); letter-spacing:.12em; margin:0 0 1.25rem;
+}
+.intro blockquote{ font-size:1.1rem; font-style:italic; color:#ccc; margin:0 auto 2rem; max-width:720px; line-height:1.8; }
+.intro .author{ display:block; margin-top:.75rem; font-size:.9rem; color:#999; }
+.intro p{ max-width:860px; margin:0 auto; color:#ddd; line-height:1.9 }
+
+/* ================== Section: Packages (겉 패키지) ================== */
+.section{
+  position:relative; width:100%; min-height:100vh; background:#000; overflow:hidden;
+}
+.section .title{
+  position:absolute; top:10%; left:50%; transform:translateX(-50%);
+  z-index:2; font-family:'Playfair Display',serif; font-weight:600;
+  font-size:clamp(18px,2.2vw,32px); letter-spacing:.15em;
+}
+
+/* 스크롤로 넘기는 풀스크린 갤러리 */
+.fullscreen-gallery{ position:absolute; inset:0; }
+.hero-img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .8s ease;
+}
+.hero-img.active{ opacity:1; }
+
+/* 설명 버튼 & 패널 */
+.info-btn{
+  position:absolute; right:6%; top:14%; z-index:5;
+  padding:.55rem .9rem; background:rgba(0,0,0,.6); color:#fff;
+  border:1px solid rgba(255,255,255,.2); border-radius:999px; font-size:.9rem; letter-spacing:.08em;
+  backdrop-filter: blur(6px); cursor:pointer; transition:.25s;
+}
+.info-btn:hover{ background:rgba(0,0,0,.8); }
+
+.info-panel{
+  position:fixed; top:0; right:0; bottom:0; width:min(420px,88vw); z-index:1200;
+  background:rgba(12,12,12,.98); color:#f5f5f5; border-left:1px solid rgba(255,255,255,.08);
+  transform:translateX(100%); transition:transform .35s cubic-bezier(.2,.7,0,1);
+  backdrop-filter: blur(10px);
+}
+.info-panel.open{ transform:none; }
+.info-panel .panel-inner{ padding:24px 22px 28px; display:flex; flex-direction:column; gap:14px; }
+.panel-title{ font-family:'Playfair Display','Eulyoo1945',serif; font-size:1.25rem; letter-spacing:.06em; }
+.panel-desc{ font-size:.95rem; line-height:1.8; color:#d9d9d9; }
+.panel-spec{ margin:4px 0 10px 18px; color:#ccc; }
+.panel-spec li{ margin:.35rem 0; }
+.panel-close{ align-self:flex-start; margin-top:.5rem; padding:.45rem .8rem; background:#222; color:#fff; border:1px solid rgba(255,255,255,.12); border-radius:10px; cursor:pointer; transition:.25s; }
+.panel-close:hover{ background:#2b2b2b; }
+
+/* ================== Section: Inside (구성품) ================== */
+.inside-wrap{ padding:110px 24px 120px; background:#0a0a0a; }
+.grid{
+  max-width:1280px; margin:0 auto;
+  display:grid; gap:16px;
+  grid-template-columns: repeat(12, 1fr);
+}
+.card{
+  grid-column: span 4; background:#111; border:1px solid rgba(255,255,255,.08);
+  border-radius:16px; overflow:hidden;
+  transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+.card:hover{ transform: translateY(-4px); box-shadow:0 10px 28px rgba(0,0,0,.35); border-color: rgba(255,255,255,.16);}
+.card .media{ aspect-ratio: 4/3; background:#000; }
+.card .media img{ width:100%; height:100%; object-fit:cover; }
+.card .body{ padding:16px 14px 18px; }
+.card .name{ font-family:'Playfair Display',serif; letter-spacing:.06em; font-size:1.02rem; margin-bottom:.35rem; }
+.card .desc{ font-size:.92rem; color:#cfcfcf; line-height:1.7 }
+
+@media (max-width: 1080px){
+  .card{ grid-column: span 6; }
+}
+@media (max-width: 680px){
+  .card{ grid-column: span 12; }
+}
+
+/* ================== Section: Message Card ================== */
+.msg-note{
+  background:#0b0b0b; color:#e9e9e9; padding:120px 24px 140px; text-align:center;
+}
+.msg-note h2{
+  font-family:'Playfair Display',serif; font-weight:600; letter-spacing:.14em;
+  font-size:clamp(20px,2.4vw,32px); margin-bottom:16px;
+}
+.msg-note p{ max-width:820px; margin:0 auto; line-height:1.9; color:#d8d8d8 }
+
+/* ================== Footer ================== */
+footer::before{
+  content:""; display:block; width:100%; height:1px; margin:80px 0 40px;
+  background:rgba(255,255,255,.15);
+}
+footer { background:#000; padding:6rem 3rem; color:#fff; }
+.footer-top .footer-logo{ display:flex; justify-content:center; align-items:center; margin-bottom:3rem; }
+.footer-top .footer-logo img{ height:64px; width:auto; }
+.footer-top .footer-links{ display:flex; justify-content:space-evenly; align-items:flex-start; gap:2rem; flex-wrap:wrap; }
+.footer-col ul{ list-style:none; padding-left:0; }
+.col-title{ font-size:1rem; font-weight:400; margin-bottom:1rem; color:#fff; }
+.footer-col ul li{ margin-bottom:.75rem; font-size:.875rem; font-weight:100; color:#fff; }
+.footer-divider{ border:none; border-top:1px solid rgba(255,255,255,0.2); margin:3rem 0; }
+.footer-bottom{ display:flex; justify-content:space-between; align-items:center; font-size:.75rem; opacity:.8 }
+.footer-bottom .social-icons{ display:flex; align-items:center; gap:.75rem; margin-right:20px }
+.footer-bottom .social-icons img.footer-icon{ width:24px; height:24px; object-fit:contain }
+
+/* ================== Loader ================== */
+#loader{
+  position:fixed; inset:0; background:#000; overflow:hidden; z-index:9999;
+}
+.dandelion{ position:absolute; top:50%; left:50%; width:200px; transform:translate(-50%,-50%); pointer-events:none }
+.seed{ position:absolute; top:40%; left:50%; width:30px; transform-origin:center; opacity:0; animation: flyUp 4s ease-out forwards; pointer-events:none }
+@keyframes flyUp{
+  0%{ opacity:1; transform:translate(0,0) scale(1) rotate(0deg) }
+  100%{ opacity:0; transform:translate(var(--dx),var(--dy)) scale(.4) rotate(var(--rot)) }
+}
+#content{ visibility:hidden; }
+body.hide-header .cat-tabs{
+  top: 0 !important;                /* 인라인 top보다 우선 */
+  background: rgba(0,0,0,0.88);
+  border-bottom: 1px solid rgba(255,255,255,.1);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+}
+
+  </style>
+</head>
+<body>
+  <!-- Loader -->
+  <div id="loader">
+    <img src="dandelion.png" class="dandelion" alt="dandelion"/>
+    <!-- seed 이미지는 JS에서 자동 추가 -->
+  </div>
+
+  <!-- Header -->
+  <header class="nav-hidden" id="site-header">
+    <div class="header-container">
+      <div class="header-left">
+        <img class="icon" src="b.png" alt="검색" />
+        <input type="search" placeholder="검색" />
+      </div>
+      <div class="header-center">
+        <a href="index.html" class="logo"><img src="logo.png" alt="GBB" /></a>
+      </div>
+      <div class="header-right">
+        <a href="#"><img class="icon" src="c.png" alt="로그인" /></a>
+        <a href="#"><img class="icon" src="d.png" alt="장바구니" /></a>
+      </div>
+    </div>
+
+    <nav class="main">
+      <div class="nav-container">
+        <ul class="nav-left">
+          <li><a href="high.html">하이주얼리</a></li>
+          <li><a href="jewelry.html">주얼리</a></li>
+          <li><a href="watch.html">시계</a></li>
+          <li><a href="accessory.html">액세서리</a></li>
+          <li><a href="gift.html">기프트</a></li>
+        </ul>
+        <div class="divider" aria-hidden="true"></div>
+        <ul class="nav-right">
+          <li><a href="brand.html">GBB 소개</a></li>
+          <li><a href="news.html">새로운 소식</a></li>
+          <li><a href="history.html">GBB 컬렉션 히스토리</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+
+  <nav class="cat-tabs" aria-label="Gift categories" id="catTabs">
+  <a href="#sec-packages">PACKAGES</a>
+  <a href="#sec-inside">INSIDE</a>
+  <a href="#sec-series">CROWN SERIES</a> <!-- ← 변경 -->
+</nav>
+
+
+  <!-- Main -->
+  <main id="content">
+    <!-- Top Hero -->
+    <section class="hero" aria-label="Gift Hero">
+      <img src="pa1-5.png" alt="GBB Gift Hero">
+      <div class="brand-mark">GBB</div>
+    </section>
+
+    <!-- Intro -->
+    <section class="intro">
+      <h1>CROWN OF BLESSING – GIFT</h1>
+      <blockquote>
+        축복은 예수님의 면류관으로 부터 시작되었습니다.
+        <span class="author">GBB Gift</span>
+      </blockquote>
+      <p>‘Crown of Blessing’ 기프트는 예수님의 면류관을 모티브로한 GBB의 주된 패키지로,
+         선물 받는 순간부터 예수님의 축복, 그리고 착용의 시간까지 모두가 예수님의 희생을 경험하도록 디자인했습니다.</p>
+    </section>
+
+    <!-- PACKAGES (겉 패키지 풀스크린 갤러리) -->
+    <section class="section" id="sec-packages">
+      <div class="title">PACKAGES</div>
+      <div class="fullscreen-gallery">
+        <!-- 파일명 예시: pa1.png ~ pa3.png (정면/사선/오픈 전) -->
+        <img src="pa1.png" class="hero-img active" alt="Package Front">
+        <img src="pa2.png" class="hero-img" alt="Package Angle">
+        <img src="pa3.png" class="hero-img" alt="Package Back">
+      </div>
+
+      <button class="info-btn" data-panel="panel-packages" aria-controls="panel-packages" aria-expanded="false">설명</button>
+      <aside class="info-panel" id="panel-packages" aria-hidden="true">
+        <div class="panel-inner">
+          <h3 class="panel-title">PACKAGES</h3>
+          <p class="panel-desc">
+            왕관의 실루엣에서 영감을 받은 박스 구조로, 문이 중앙에서 열리고
+            하단 서랍이 순차적으로 펼쳐지며 ‘축복의 개화’를 연출합니다.
+            외장 페이퍼는 매트 블랙, 포일 스탬핑은 로열 골드 톤을 사용했습니다.
+          </p>
+          <ul class="panel-spec">
+            <li>외장: 매트 블랙 페이퍼, 골드 포일 스탬핑</li>
+            <li>개폐: 중앙 도어 + 하단 서랍 구조</li>
+            <li>완충: 벨벳 인서트 & 자기결합(옵션)</li>
+          </ul>
+          <button class="panel-close">닫기</button>
+        </div>
+      </aside>
+    </section>
+
+    <!-- INSIDE (구성품 그리드) -->
+  <section class="inside-wrap" id="sec-inside" aria-label="Inside Components">
+  <div class="grid">
+    <!-- 1. 쇼핑백 -->
+    <article class="card">
+      <div class="media"><img src="comp-bag.png" alt="GBB 쇼핑백"></div>
+      <div class="body">
+        <h3 class="name">Shopping Bag</h3>
+        <p class="desc">레드-오렌지 새틴 핸들과 금박 로고로 마감된 하이엔드 패키징.</p>
+      </div>
+    </article>
+
+    <!-- 2. 3단 패키지 상자 -->
+    <article class="card">
+      <div class="media"><img src="comp-3tierbox.png" alt="3단 패키지 상자"></div>
+      <div class="body">
+        <h3 class="name">3-Tier Package Box</h3>
+        <p class="desc">중앙 도어와 하단 서랍이 단계적으로 열리며 ‘축복의 개화’를 연출합니다.</p>
+      </div>
+    </article>
+
+    <!-- 3. 메시지 카드 -->
+    <article class="card">
+      <div class="media"><img src="comp-card.png" alt="메시지 카드"></div>
+      <div class="body">
+        <h3 class="name">Blessing Message Card</h3>
+        <p class="desc">받는 이의 이름/날짜 각인 가능. 금박 포인트로 품격을 더했습니다.</p>
+      </div>
+    </article>
+
+    <!-- 4. 보증서 -->
+    <article class="card">
+      <div class="media"><img src="comp-warranty.png" alt="보증서 & 케어 가이드"></div>
+      <div class="body">
+        <h3 class="name">Warranty & Care</h3>
+        <p class="desc">소재, 세팅, 서비스 정책을 안내하는 정품 보증 및 케어 가이드.</p>
+      </div>
+    </article>
+
+    <!-- 5. 보석 상지 (한지/티슈) -->
+    <article class="card">
+      <div class="media"><img src="comp-tissue.png" alt="보석 상지 (티슈/한지)"></div>
+      <div class="body">
+        <h3 class="name">Jewelry Tissue</h3>
+        <p class="desc">주얼리를 부드럽게 감싸는 GBB로고 패턴. 은은한 로고 패턴으로 마감.</p>
+      </div>
+    </article>
+
+    <!-- 6. 왁스 씰 -->
+    <article class="card">
+      <div class="media"><img src="comp-wax.png" alt="왁스 씰"></div>
+      <div class="body">
+        <h3 class="name">Wax Seal</h3>
+        <p class="desc">왕관 문양 왁스 씰로 봉인하여 개봉 순간의 설렘을 극대화합니다.</p>
+      </div>
+    </article>
+  </div>
+</section>
+<section class="section" id="sec-series" aria-label="Crown Series Showcase">
+  <div class="title">CROWN SERIES</div>
+  <div class="fullscreen-gallery">
+    <!-- 파일명은 예시이니 네 이미지로 교체 가능 -->
+    <img src="crown-ring.png"     class="hero-img active" alt="Crown Series – Ring">
+    <img src="crown-earring.png"  class="hero-img"        alt="Crown Series – Earring">
+    <img src="crown-necklace.png" class="hero-img"        alt="Crown Series – Necklace">
+    
+  </div>
+
+  <button class="info-btn" data-panel="panel-series" aria-controls="panel-series" aria-expanded="false">설명</button>
+  <aside class="info-panel" id="panel-series" aria-hidden="true">
+    <div class="panel-inner">
+      <h3 class="panel-title">CROWN SERIES – Ring · Earring · Necklace</h3>
+      <p class="panel-desc">
+        예수님의 가시 면류관에서 모티프로, 보혈의 루비와 정결한 가시 세팅으로
+        주님의 희생과 복음의 상징을 담았습니다. 각 작품은 얼굴 윤곽과 넥 라인을 우아하게
+        감싸는 비율로 설계되었습니다.
+      </p>
+      <ul class="panel-spec">
+        <li>메인 스톤: 루비(Brilliant / Oval)</li>
+        <li>사이드: 브릴리언트 컷 다이아몬드</li>
+        <li>메탈: 18K 옐로우/로즈/화이트 골드</li>
+        <li>사이즈: 반지 7–18호 / 귀걸이 피어스형 / 목걸이 40–45cm</li>
+      </ul>
+      <button class="panel-close">닫기</button>
+    </div>
+  </aside>
+</section>
+
+    <footer>
+      <div class="footer-top">
+        <div class="footer-logo"><img src="logo.png" alt="GBB 로고"></div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <p class="col-title">GOD BLESS BIN 브랜드 스토리보기</p>
+            <ul>
+              <li>첫번째 컬렉션</li><li>반지</li><li>목걸이</li><li>팔찌</li><li>귀걸이</li>
+              <li>시계</li><li>비녀</li><li>패션웨어</li><li>선물세트</li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <p class="col-title">온라인 서비스</p>
+            <ul>
+              <li>GBB 멤버십 보기</li><li>결제 방법</li><li>배송 옵션</li>
+              <li>마이 페이지</li><li>반품</li><li>케어 & 서비스</li><li>Q&amp;A</li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <p class="col-title">매장 서비스</p>
+            <ul>
+              <li>근처 매장 찾기</li><li>매장 방문 예약</li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <p class="col-title">GBB</p>
+            <ul>
+              <li>채용 공고</li><li>법률 성명</li><li>개인정보처리방침</li>
+              <li>Report to Society</li><li>위조품 근절</li><li>재무 실적</li><li>지속가능연계채권 업데이트</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <hr class="footer-divider">
+      <div class="footer-bottom">
+        <div>Change location and language 한국어 - Korean</div>
+        <div class="social-icons">
+          <a href="#"><img src="e.png" alt="Icon E" class="footer-icon"></a>
+          <a href="#"><img src="f.png" alt="Icon F" class="footer-icon"></a>
+          <a href="#"><img src="g.png" alt="Icon G" class="footer-icon"></a>
+          <a href="#"><img src="h.png" alt="Icon H" class="footer-icon"></a>
+          <a href="#"><img src="i.png" alt="Icon I" class="footer-icon"></a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- ================== Scripts ================== -->
+  <script>
+  // Loader seeds
+  (function() {
+    const loader = document.getElementById('loader');
+    const SEED_COUNT = 10;
+    for (let i = 0; i < SEED_COUNT; i++) {
+      const seed = document.createElement('img');
+      seed.src = 'seed.png';
+      seed.className = 'seed';
+      const dx  = (Math.random() - 0.5) * 200 + 'px';
+      const dy  = -(150 + Math.random() * 200) + 'px';
+      const rot = (Math.random() - 0.5) * 60 + 'deg';
+      seed.style.setProperty('--dx', dx);
+      seed.style.setProperty('--dy', dy);
+      seed.style.setProperty('--rot', rot);
+      seed.style.animationDelay = (Math.random() * 1.0) + 's';
+      loader.appendChild(seed);
+    }
+    window.addEventListener('load', () => {
+      loader.style.transition = 'opacity .9s ease';
+      loader.style.opacity = '0';
+      loader.addEventListener('transitionend', () => {
+        loader.remove();
+        document.getElementById('content').style.visibility = 'visible';
+      });
+    });
+  })();
+  </script>
+
+  <script>
+  // Header show/hide on scroll + Cat tabs reveal at PACKAGES
+  (function(){
+    const header = document.getElementById('site-header');
+    const tabs   = document.getElementById('catTabs');
+    const anchor = document.getElementById('sec-packages');
+    if(!header || !tabs || !anchor) return;
+
+    // header height to position tabs (헤더 보일 때만 헤더 높이에 맞춰 배치)
+    const setTop = () => {
+      const top = header.offsetHeight || 100;
+      // 기본 상태(헤더 보임)에서는 헤더 높이만큼 아래에 배치
+      if (!document.body.classList.contains('hide-header')) {
+        tabs.style.top = top + 'px';
+      }
+      // hide-header일 땐 CSS가 top:0 !important로 덮어씀
+      document.documentElement.style.setProperty('--tabsH', tabs.offsetHeight + 'px');
+    };
+    window.addEventListener('load', setTop);
+    window.addEventListener('resize', setTop);
+
+    let lastY = window.scrollY;
+
+    const onScroll = () => {
+      const y = window.scrollY;
+
+      // PACKAGES 지점 통과 여부
+      const past = (y + 1) >= anchor.offsetTop;
+      tabs.classList.toggle('is-visible', past);
+
+      // 스크롤 방향에 따라 헤더 show/hide
+      if (y > lastY){
+        header.classList.remove('nav-visible');
+        header.classList.add('nav-hidden');
+      } else {
+        header.classList.add('nav-visible');
+        header.classList.remove('nav-hidden');
+      }
+
+      // ⬇️ 중요: 헤더가 숨겨진 상태를 body에 표시 (탭을 top:0로 붙이기 위함)
+      // PACKAGES 섹션 이후(past)에서만 탭을 최상단에 붙이고, 그 외에는 기본 배치
+      const hide = past && (y > lastY);
+      document.body.classList.toggle('hide-header', hide);
+
+      // hide-header가 해제되면 다시 헤더 높이만큼 아래로 배치
+      if (!hide) setTop();
+
+      lastY = y;
+    };
+
+    document.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+  })();
+</script>
+
+
+  <script>
+  // Wheel to change fullscreen images (for each .section with .hero-img)
+  document.querySelectorAll('.section').forEach(sec=>{
+    const imgs = sec.querySelectorAll('.hero-img');
+    if(!imgs.length) return;
+    let index = 0, locked = false;
+
+    const show = (i)=> imgs.forEach((img,idx)=> img.classList.toggle('active', idx===i));
+
+    sec.addEventListener('wheel', (e)=>{
+      if(locked) return;
+      locked = true;
+      if (e.deltaY > 0) index = Math.min(index+1, imgs.length-1);
+      else if (e.deltaY < 0) index = Math.max(index-1, 0);
+      show(index);
+      setTimeout(()=> locked=false, 900);
+    }, {passive:true});
+  });
+  </script>
+
+  <script>
+  // Info panels open/close
+  (function(){
+    const panels = new Map();
+    document.querySelectorAll('.info-panel').forEach(p=> panels.set(p.id,p));
+
+    document.querySelectorAll('.info-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const id = btn.getAttribute('data-panel');
+        const panel = panels.get(id);
+        if(!panel) return;
+        panel.classList.add('open');
+        panel.setAttribute('aria-hidden','false');
+        btn.setAttribute('aria-expanded','true');
+
+        // close other panels
+        panels.forEach((p,pid)=>{
+          if(pid!==id){
+            p.classList.remove('open');
+            p.setAttribute('aria-hidden','true');
+            const opener = document.querySelector(`.info-btn[data-panel="${pid}"]`);
+            opener && opener.setAttribute('aria-expanded','false');
+          }
+        });
+
+        const closeBtn = panel.querySelector('.panel-close');
+        closeBtn && closeBtn.focus();
+      });
+    });
+
+    document.querySelectorAll('.panel-close').forEach(close=>{
+      close.addEventListener('click', (e)=>{
+        const panel = e.currentTarget.closest('.info-panel');
+        panel.classList.remove('open');
+        panel.setAttribute('aria-hidden','true');
+        const opener = document.querySelector(`.info-btn[data-panel="${panel.id}"]`);
+        opener && opener.setAttribute('aria-expanded','false');
+        opener && opener.focus();
+      });
+    });
+
+    window.addEventListener('keydown',(e)=>{
+      if(e.key==='Escape'){
+        document.querySelectorAll('.info-panel.open').forEach(panel=>{
+          panel.classList.remove('open');
+          panel.setAttribute('aria-hidden','true');
+          const opener = document.querySelector(`.info-btn[data-panel="${panel.id}"]`);
+          opener && opener.setAttribute('aria-expanded','false');
+          opener && opener.focus();
+        });
+      }
+    });
+  })();
+  </script>
+</body>
+</html>
+
+
