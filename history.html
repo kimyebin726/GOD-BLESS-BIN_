@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GBB</title>
+  <link rel="icon" type="image/png" href="gbb.png" />
+  <!-- Fonts -->
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/gh/linecorp/line-seed-font/css/LineSeedKR.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root{ --bg:#000; --text:#F6F1E6; --hairline:rgba(246,241,230,.45); }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--text);font-family:'Pretendard','SUIT','LINE Seed KR',sans-serif}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    header{background:var(--bg)}
+    .header-container{max-width:1920px;margin:0 auto;position:relative;padding:1.25rem 3rem .25rem;display:flex;align-items:center;justify-content:space-between}
+    .header-left{display:flex;align-items:center;gap:.5rem}
+    .header-left input[type=search]{width:200px;padding:.45rem .25rem;border:none;border-bottom:1px solid var(--hairline);background:transparent;color:var(--text);font-size:.875rem}
+    .header-center{position:absolute;left:50%;transform:translateX(-50%)}
+    .header-center img{height:44px;width:auto}
+    .header-right{display:flex;align-items:center;gap:.75rem}
+    .icon{width:18px;height:18px}
+
+    nav{background:var(--bg)}
+    .nav-container{max-width:1920px;margin:0 auto;padding:.75rem 0;display:flex;justify-content:center;align-items:center;gap:2rem}
+    .nav-left,.nav-right{display:flex;gap:2.25rem;list-style:none}
+    .nav-container a{display:block;padding:.25rem 0;letter-spacing:.08em;font-size:.78rem;font-family:'SUIT','Pretendard',sans-serif}
+    .divider{width:1px;height:16px;background:var(--hairline)}
+
+    .page-hero{max-width:1320px;margin:4rem auto 2rem;padding:0 2rem;text-align:center}
+    .page-hero h1{font-family:'Playfair Display','Eulyoo1945',serif;font-weight:600;font-size:2rem;letter-spacing:.02em}
+    .page-hero .bar{width:36px;height:2px;background:var(--text);margin:.75rem auto 0;border-radius:1px;opacity:.6}
+    .sub{opacity:.75;font-size:.9rem;margin-top:.5rem}
+
+    .filter{max-width:1320px;margin:0 auto 1rem;padding:0 2rem;display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center}
+    .chip{font-size:.78rem;border:1px solid var(--hairline);padding:.4rem .7rem;border-radius:999px;cursor:pointer;opacity:.9}
+    .chip[aria-pressed="true"]{background:var(--text);color:#000}
+
+    .wrap{max-width:1320px;margin:1rem auto 6rem;padding:0 2rem}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+    .card{position:relative;overflow:hidden;border-radius:6px;cursor:pointer}
+    .card img{width:100%;height:520px;object-fit:cover;transition:transform .6s ease}
+    .card:hover img{transform:scale(1.03)}
+    .caption{position:absolute;left:16px;bottom:16px;background:rgba(0,0,0,.45);color:#fff;padding:.5rem .75rem;border-radius:4px;font-size:.875rem}
+
+    .year{margin:3rem 0 1rem;font-size:.9rem;opacity:.7}
+
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.6);z-index:2000}
+    .modal[aria-hidden="false"]{display:flex}
+    .box{background:#000;max-width:min(90vw,1200px);max-height:90vh;border-radius:10px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+    .box img{max-height:80vh;width:auto;height:auto;margin:0 auto}
+    .meta{padding:.875rem 1rem;color:#fff;background:#000;display:flex;gap:1rem;align-items:center;justify-content:space-between}
+    .close{appearance:none;border:0;background:#fff;color:#000;border-radius:999px;width:34px;height:34px;display:grid;place-items:center;font-weight:700;cursor:pointer}
+
+    
+    footer{border-top:1px solid rgba(255,255,255,.2);margin-top:4rem;background:#000;color:#fff}
+    .footer-top .footer-logo{display:flex;justify-content:center;align-items:center;margin-bottom:3rem}
+    .footer-top .footer-logo img{height:64px;width:auto;display:block}
+    .footer-top .footer-links{display:flex;justify-content:space-evenly;align-items:flex-start;gap:2rem;flex-wrap:wrap}
+    .col-title{font-size:1rem;font-weight:400;color:#fff;margin-bottom:1rem}
+    .footer-col ul{list-style:none;padding-left:0}
+    .footer-col ul li{margin-bottom:.75rem;font-size:.875rem;font-weight:100;color:#fff}
+    .footer-divider{border:none;border-top:1px solid rgba(255,255,255,.2);margin:3rem 0}
+    .footer-bottom{display:flex;justify-content:space-between;align-items:center;font-size:.75rem;opacity:.6}
+    .footer-bottom .social-icons{display:flex;align-items:center;gap:.75rem;margin-right:20px}
+    .footer-bottom .social-icons img.footer-icon{width:24px;height:24px;object-fit:contain}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="header-left">
+        <img class="icon" src="b.png" alt="검색" />
+        <input type="search" placeholder="검색" />
+      </div>
+      <div class="header-center"><a href="index.html" class="logo"><img src="logo.png" alt="GBB" /></a></div>
+      <div class="header-right">
+        <a href="#"><img class="icon" src="c.png" alt="로그인" /></a>
+        <a href="#"><img class="icon" src="d.png" alt="장바구니" /></a>
+      </div>
+    </div>
+    <nav>
+      <div class="nav-container">
+        <ul class="nav-left">
+          <li><a href="high.html">하이주얼리</a></li>
+          <li><a href="jewelry.html">주얼리</a></li>
+          <li><a href="watch.html">시계</a></li>
+          <li><a href="accessory.html">액세서리</a></li>
+          <li><a href="gift.html">기프트</a></li>
+        </ul>
+        <div class="divider"></div>
+        <ul class="nav-right">
+          <li><a href="brand.html">GBB 소개</a></li>
+          <li><a href="new.html">새로운 소식</a></li>
+          <li><a href="history.html" aria-current="page">GBB 컬렉션 히스토리</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <section class="page-hero" aria-labelledby="title">
+    <h1 id="title">GBB 컬렉션 히스토리</h1>
+    <p class="sub">첫 출시부터 현재까지의 아카이브. 카드를 눌러 크게 확인하세요.</p>
+    <div class="bar" aria-hidden="true"></div>
+  </section>
+
+  <div class="filter" id="filter">
+    <button class="chip" data-year="all" aria-pressed="true">전체</button>
+    <button class="chip" data-year="2027">2028</button>
+    <button class="chip" data-year="2026">2026</button>
+    <button class="chip" data-year="2025">2025</button>
+  </div>
+
+  <main class="wrap">
+    <h2 class="year">2028</h2>
+    <section class="grid" id="y2027">
+      <article class="card" data-title="Crown of Blessing – Launch Campaign (2027)" data-image="h1.jpg" data-year="2027"><img src="h1.jpg" alt="Launch Campaign" /><div class="caption">뉴욕타임스퀘어 GBB광고, 예수님의 웃음 — 2028</div></article>
+      <article class="card" data-title="Earrings Collection – 2027" data-image="h2.jpg" data-year="2027"><img src="h2.jpg" alt="Earrings 2027" /><div class="caption">GBB, ‘대한민국 최고 브랜드’ 선정… 선한 영향력으로 빛나다 - 2028</div></article>
+    </section>
+
+    <h2 class="year">2026</h2>
+    <section class="grid" id="y2026">
+      <article class="card" data-title="Prototype Archive (2026)" data-image="h3.jpg" data-year="2026"><img src="h3.jpg" alt="Prototype 2026" /><div class="caption">GBB 갤러리백화점 입점 — 2026</div></article>
+      <article class="card" data-title="Packaging Study (2026)" data-image="h4.jpg" data-year="2026"><img src="h4.jpg" alt="Packaging 2026" /><div class="caption">GBB 매장 완공— 2026</div></article>
+    </section>
+
+    <h2 class="year">2025</h2>
+    <section class="grid" id="y2025">
+      <article class="card" data-title="Sketches & Mood (2025)" data-image="h5.jpg" data-year="2025"><img src="h6.jpg" alt="Sketches 2025" /><div class="caption">GBB 매장 건설- 2026</div></article>
+      <article class="card" data-title="Early Motif (2025)" data-image="h6.jpg" data-year="2025"><img src="h5.jpg" alt="Early Motif" /><div class="caption">스케치 & 무드 — 2025</div></article>
+    </section>
+  </main>
+<h2 class="year">2002</h2>
+<section class="grid" id="y2002">
+  <article class="card" data-title="First Atelier (2002)" data-image="h7.jpg" data-year="2002">
+    <img src="h7.jpg" alt="First Atelier 2002" />
+    <div class="caption">2세대 주얼리 갤러리 오픈</div>
+  </article>
+  <article class="card" data-title="GBB Origin (2002)" data-image="h8.jpg" data-year="2002">
+    <img src="h8.jpg" alt="GBB Origin 2002" />
+    <div class="caption">GBB의 시작 – 1세대 주얼리 공방</div>
+  </article>
+</section>
+  <div class="modal" id="modal" aria-hidden="true" aria-labelledby="mTitle" role="dialog">
+    <div class="box">
+      <div class="media"><img id="mImage" alt="" /></div>
+      <div class="meta"><strong id="mTitle">Title</strong><button class="close" id="mClose" aria-label="닫기">×</button></div>
+    </div>
+  </div>
+
+<footer>
+    <div class="footer-top">
+      <div class="footer-logo"><img src="logo.png" alt="GBB 로고"></div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <p class="col-title">GOD BLESS BIN 브랜드 스토리보기</p>
+          <ul>
+            <li>첫번째 컬렉션</li>
+            <li>반지</li>
+            <li>목걸이</li>
+            <li>팔찌</li>
+            <li>귀걸이</li>
+            <li>시계</li>
+            <li>비녀</li>
+            <li>패션웨어</li>
+            <li>선물세트</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <p class="col-title">온라인 서비스</p>
+          <ul>
+            <li>GBB 멤버십 보기</li>
+            <li>결제 방법</li>
+            <li>배송 옵션</li>
+            <li>마이 페이지</li>
+            <li>반품</li>
+            <li>케어 & 서비스</li>
+            <li>Q&A</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <p class="col-title">매장 서비스</p>
+          <ul>
+            <li>근처 매장 찾기</li>
+            <li>매장 방문 예약</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <p class="col-title">GBB</p>
+          <ul>
+            <li>채용 공고</li>
+            <li>법률 성명</li>
+            <li>개인정보처리방침</li>
+            <li>Report to Society</li>
+            <li>위조품 근절</li>
+            <li>재무 실적</li>
+            <li>지속가능연계채권 업데이트</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <hr class="footer-divider" />
+    <div class="footer-bottom">
+      <div>Change location and language 한국어 - Korean</div>
+      <div class="social-icons">
+        <a href="#"><img src="e.png" alt="Icon E" class="footer-icon"></a>
+        <a href="#"><img src="g.png" alt="Icon G" class="footer-icon"></a>
+        <a href="#"><img src="h.png" alt="Icon H" class="footer-icon"></a>
+        <a href="#"><img src="i.png" alt="Icon I" class="footer-icon"></a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    (function(){
+      const grid = document.querySelector('.wrap');
+      const modal = document.getElementById('modal');
+      const img = document.getElementById('mImage');
+      const title = document.getElementById('mTitle');
+      const closeBtn = document.getElementById('mClose');
+      let lastFocus=null;
+
+      function openModal(src, caption){
+        lastFocus = document.activeElement;
+        img.src=src; img.alt=caption; title.textContent=caption;
+        modal.setAttribute('aria-hidden','false');
+        document.body.style.overflow='hidden';
+        closeBtn.focus();
+      }
+      function closeModal(){
+        modal.setAttribute('aria-hidden','true');
+        document.body.style.overflow='';
+        if(lastFocus) lastFocus.focus();
+      }
+
+      grid.addEventListener('click', (e)=>{
+        const card=e.target.closest('.card'); if(!card) return;
+        openModal(card.dataset.image, card.dataset.title);
+      });
+      grid.addEventListener('keydown',(e)=>{
+        if((e.key==='Enter'||e.key===' ') && e.target.classList.contains('card')){
+          e.preventDefault();
+          const c=e.target; openModal(c.dataset.image,c.dataset.title);
+        }
+      });
+      closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
+      window.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && modal.getAttribute('aria-hidden')==='false') closeModal(); });
+
+      const chips=[...document.querySelectorAll('.chip')];
+      chips.forEach(ch=>{
+        ch.addEventListener('click',()=>{
+          chips.forEach(c=>c.setAttribute('aria-pressed','false'));
+          ch.setAttribute('aria-pressed','true');
+          const y=ch.dataset.year;
+          document.querySelectorAll('.card').forEach(card=>{
+            card.style.display = (y==='all' || card.dataset.year===y) ? '' : 'none';
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
