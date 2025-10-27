@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GBB</title>
+  <link rel="icon" type="image/png" href="gbb.png" />
+  <!-- Fonts (index.html과 동일) -->
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/gh/linecorp/line-seed-font/css/LineSeedKR.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet" />
+  
+  <style>
+    /* ================== Design System (index.html 기준) ================== */
+    :root{
+      --bg: #000;
+      --text: #F6F1E6;           /* 크림 화이트 */
+      --hairline: rgba(246,241,230,.45);
+      --muted: rgba(255,255,255,.6);
+      --card: #0C0B0A;
+      --accent: #FD4F19;         /* GBB 레드오렌지 포인트 */
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html, body { overflow-x: hidden; }
+    body{background:var(--bg);color:var(--text);font-family:'Pretendard Variable','SUIT','LINE Seed KR',system-ui,-apple-system,sans-serif}
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%;height:auto}
+
+    /* ================== Header / Nav (index.html과 동일 구조) ================== */
+    header{background:var(--bg)}
+    .header-container{max-width:1920px;margin:0 auto;position:relative;padding:1.25rem 3rem .25rem;display:flex;align-items:center;justify-content:space-between}
+    .header-left{display:flex;align-items:center;gap:.5rem}
+    .header-left input[type=search]{width:200px;padding:.45rem .25rem;border:none;border-bottom:1px solid var(--hairline);background:transparent;color:var(--text);font-size:.875rem}
+    .header-center{position:absolute;left:50%;transform:translateX(-50%)}
+    .header-center img{height:44px;width:auto} /* 로고 44px — index.html 기준 */
+    .header-right{display:flex;align-items:center;gap:.75rem}
+    .icon{width:18px;height:18px}
+
+    nav{background:var(--bg)}
+    .nav-container{max-width:1920px;margin:0 auto;padding:.75rem 0;display:flex;justify-content:center;align-items:center;gap:2rem}
+    .nav-left,.nav-right{display:flex;gap:2.25rem;list-style:none}
+    .nav-container a{display:block;padding:.25rem 0;letter-spacing:.08em;font-size:.78rem;opacity:.9}
+    .nav-container a:hover{opacity:1}
+    .nav-container a.active{position:relative}
+    .nav-container a.active {
+  font-weight: 500;
+  color: var(--text);
+  opacity: 1;
+}
+    .divider{width:1px;height:16px;background:var(--hairline);pointer-events:none}
+    .nav-gap{height:10px;background:var(--bg)}
+
+    /* ================== Page Hero ================== */
+    .hero{max-width:1400px;margin:48px auto 12px;padding:0 24px}
+    .eyebrow{color:var(--muted);font-size:.8rem;letter-spacing:.18em}
+    h1.hero-title{font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(28px,4.2vw,48px);line-height:1.2;margin-top:6px}
+    p.hero-sub{color:var(--muted);max-width:80ch;line-height:1.8;margin-top:8px}
+
+    /* ================== Controls ================== */
+    .controls{max-width:1400px;margin:18px auto 0;padding:0 24px;display:flex;flex-wrap:wrap;gap:10px}
+    .chip{border:1px solid var(--hairline);background:#0A0A0A;color:var(--text);padding:10px 14px;border-radius:999px;font-size:.9rem;cursor:pointer}
+    .chip[data-on="true"],.chip:hover{border-color:var(--accent)}
+    .search{flex:1 1 260px;min-width:220px;position:relative}
+    .search input{width:100%;padding:12px 14px 12px 38px;border-radius:999px;background:#0A0A0A;border:1px solid var(--hairline);color:var(--text)}
+    .search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:.7}
+
+    /* ================== Grid ================== */
+    .wrap{max-width:1400px;margin:18px auto 80px;padding:0 24px}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+    .card{grid-column:span 6;background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;position:relative}
+    @media(min-width:900px){.card{grid-column:span 4}}
+    .thumb{aspect-ratio:4/5;background:#111;overflow:hidden}
+    .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+    .card:hover .thumb img{transform:scale(1.04)}
+    .meta{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:14px}
+    .title{font-size:15px;font-weight:600}
+    .cat{font-size:12px;letter-spacing:.08em;color:var(--muted)}
+    .price{font-variant-numeric:tabular-nums;font-size:14px}
+    .badge{position:absolute;top:12px;left:12px;background:linear-gradient(180deg,var(--accent),#9a471f);padding:6px 10px;border-radius:999px;font-size:11px}
+
+    /* ================== Footer (index.html 동일 구조) ================== */
+    footer{padding:0 24px;background:var(--bg)}
+    .footer-top{max-width:1920px;margin:0 auto}
+    .footer-top .footer-logo{display:flex;justify-content:center;align-items:center;margin-bottom:3rem}
+    .footer-top .footer-logo img{height:64px;width:auto}
+    .footer-top .footer-links{display:flex;justify-content:space-evenly;align-items:flex-start;gap:2rem;flex-wrap:wrap}
+    .col-title{font-size:1rem;font-weight:400;margin-bottom:1rem;color:#fff}
+    .footer-col ul{list-style:none;padding-left:0}
+    .footer-col ul li{margin-bottom:.75rem;font-size:.875rem;font-weight:100;color:#fff}
+    .footer-divider{border:none;border-top:1px solid rgba(255,255,255,.2);margin:3rem 0}
+    .footer-bottom{display:flex;justify-content:space-between;align-items:center;font-size:.75rem;opacity:.6}
+    .footer-bottom .social-icons{display:flex;align-items:center;gap:.75rem;margin-right:20px}
+    .footer-bottom .social-icons img.footer-icon{width:24px;height:24px;object-fit:contain}
+  </style>
+</head>
+<body>
+  <!-- ================== Header ================== -->
+  <header>
+    <div class="header-container">
+      <div class="header-left">
+        <img class="icon" src="b.png" alt="검색" />
+        <input type="search" placeholder="검색" />
+      </div>
+      <div class="header-center"><a href="index.html" class="logo"><img src="logo.png" alt="GBB" /></a></div>
+      <div class="header-right">
+        <a href="#"><img class="icon" src="c.png" alt="로그인" /></a>
+        <a href="#"><img class="icon" src="d.png" alt="장바구니" /></a>
+      </div>
+    </div>
+    <nav>
+      <div class="nav-container">
+        <ul class="nav-left">
+          <li><a href="high.html">하이주얼리</a></li>
+          <li><a href="jewelry.html">주얼리</a></li>
+          <li><a href="watch.html">시계</a></li>
+          <li><a href="accessory.html" class="active">액세서리</a></li>
+          <li><a href="gift.html">기프트</a></li>
+        </ul>
+        <div class="divider" aria-hidden="true"></div>
+        <ul class="nav-right">
+          <li><a href="brand.html">GBB 소개</a></li>
+          <li><a href="news.html">새로운 소식</a></li>
+          <li><a href="history.html">GBB 컬렉션 히스토리</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="nav-gap"></div>
+  </header>
+
+  <!-- ================== Hero ================== -->
+  <section class="hero">
+    <div class="eyebrow">Crown of Blessing — Accessories</div>
+    <h1 class="hero-title">액세서리</h1>
+    <p class="hero-sub">면류관의 디테일을 일상으로 확장한 작은 축복들. 선글라스, 브로치, 헤어, 팔찌, 키링, 폰스트랩까지 라인업을 소개합니다.</p>
+  </section>
+
+  <!-- ================== Controls ================== -->
+  <section class="controls">
+    <button class="chip" data-filter="all" data-on="true">전체</button>
+    <button class="chip" data-filter="sunglasses">선글라스</button>
+    <button class="chip" data-filter="brooch">브로치</button>
+    <button class="chip" data-filter="hair">헤어</button>
+    <button class="chip" data-filter="bracelet">팔찌</button>
+    <button class="chip" data-filter="keyring">키 링</button>
+    <button class="chip" data-filter="phonestrap">폰 스트랩</button>
+
+    <div class="search" role="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.2-4.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6"/></svg>
+      <input id="q" type="search" placeholder="검색: 예) sunglasses / gold / orange" aria-label="액세서리 검색" />
+    </div>
+  </section>
+
+  <!-- ================== Grid ================== -->
+  <main class="wrap">
+    <div id="grid" class="grid" aria-live="polite"></div>
+  </main>
+
+  <!-- ================== Footer ================== -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-logo"><img src="logo.png" alt="GBB 로고"></div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <p class="col-title">GOD BLESS BIN 브랜드 스토리보기</p>
+          <ul>
+            <li>첫번째 컬렉션</li><li>반지</li><li>목걸이</li><li>팔찌</li><li>귀걸이</li><li>시계</li><li>비녀</li><li>패션웨어</li><li>선물세트</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <p class="col-title">온라인 서비스</p>
+          <ul>
+            <li>GBB 멤버십 보기</li><li>결제 방법</li><li>배송 옵션</li><li>마이 페이지</li><li>반품</li><li>케어 & 서비스</li><li>Q&A</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <p class="col-title">매장 서비스</p>
+          <ul>
+            <li>근처 매장 찾기</li><li>매장 방문 예약</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <p class="col-title">GBB</p>
+          <ul>
+            <li>채용 공고</li><li>법률 성명</li><li>개인정보처리방침</li><li>Report to Society</li><li>위조품 근절</li><li>재무 실적</li><li>지속가능연계채권 업데이트</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="footer-divider">
+      <div class="footer-bottom">
+        <div>Change location and language 한국어 - Korean</div>
+        <div class="social-icons">
+          <a href="#"><img src="e.png" alt="Icon E" class="footer-icon"></a>
+          <a href="#"><img src="f.png" alt="Icon F" class="footer-icon"></a>
+          <a href="#"><img src="g.png" alt="Icon G" class="footer-icon"></a>
+          <a href="#"><img src="h.png" alt="Icon H" class="footer-icon"></a>
+          <a href="#"><img src="i.png" alt="Icon I" class="footer-icon"></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================== Scripts ================== -->
+  <script>
+    const KRW = v => v.toLocaleString('ko-KR');
+    const items = [
+      // ——— Sunglasses
+      { id:"sg01", name:"Crown Frame — Gold Amber Sunglasses", cat:"sunglasses", price: 380000, img:"sg1.jpg", badge:"NEW" },
+      { id:"sg02", name:"Halo Shade — Rose", cat:"sunglasses", price: 360000, img:"sg2.jpg" },
+      { id:"sg03", name:"Blessing Light — Noir Sunglasses", cat:"sunglasses", price: 340000, img:"sg3.jpg" },
+
+     // ——— Keyring
+      { id:"sg04", name:"Crown Frame — Tortoise", cat:"keyring", price: 380000, img:"sg4.jpg" },
+      { id:"br01", name:"Mini Crown Pin", cat:"keyring", price: 150000, img:"acc_brooch1.jpg" },
+      { id:"br02", name:"Dandelion Seed Brooch", cat:"keyring", price: 190000, img:"acc_brooch2.jpg" },
+
+      // ——— Hair
+      { id:"hr01", name:"Halo Comb", cat:"hair", price: 360000, img:"acc_hair1.jpg" },
+      { id:"hr02", name:"Grace Pin — Gold", cat:"hair", price: 190000, img:"acc_hair3.jpg" },
+      { id:"hr02", name:"Grace Pin — Gold", cat:"hair", price: 190000, img:"acc_hair2.jpg" },
+
+
+      { id:"bc02", name:"Seed Chain Anklet", cat:"bracelet", price: 390000, img:"acc_br2.jpg" },
+      { id:"kr01", name:"Bless Key Ring — Oval", cat:"keyring", price: 120000, img:"acc_key1.jpg" },
+      { id:"kr02", name:"Bless Bag Charm — Logo", cat:"keyring", price: 130000, img:"acc_key2.jpg" },
+
+      // ——— Phone strap
+      { id:"ph01", name:"Dandelion Drop Strap", cat:"phonestrap", price: 49000, img:"acc_phone1.jpg" }
+    ];
+
+    const $grid = document.getElementById('grid');
+    const $chips = [...document.querySelectorAll('.chip')];
+    const $q = document.getElementById('q');
+
+    let state = { filter:'all', q:'' };
+
+    function render(){
+      let list = items.slice();
+      if(state.filter !== 'all') list = list.filter(i=> i.cat === state.filter);
+      if(state.q){
+        const term = state.q.toLowerCase();
+        list = list.filter(i=> (i.name+" "+i.cat).toLowerCase().includes(term));
+      }
+      $grid.innerHTML = list.map(card).join('');
+    }
+
+    function card(i){
+      return `
+      <article class="card" data-id="${i.id}" data-cat="${i.cat}">
+        ${i.badge?`<span class="badge">${i.badge}</span>`:''}
+        <a href="product-${i.id}.html" aria-label="${i.name} 상세 보기">
+          <div class="thumb"><img loading="lazy" src="${i.img}" alt="${i.name}" /></div>
+          <div class="meta">
+            <div>
+              <div class="title">${i.name}</div>
+              <div class="cat">${label(i.cat)}</div>
+            </div>
+            <div class="price">₩ ${KRW(i.price)}</div>
+          </div>
+        </a>
+      </article>`
+    }
+
+    function label(cat){
+      return ({
+        sunglasses:'Sunglasses',
+        brooch:'Brooch',
+        hair:'Hair',
+        bracelet:'Bracelet',
+        keyring:'Key Ring',
+        phonestrap:'Phone Strap',
+      })[cat] || cat;
+    }
+
+    $chips.forEach(ch=> ch.addEventListener('click', ()=>{
+      $chips.forEach(c=> c.dataset.on = 'false');
+      ch.dataset.on = 'true';
+      state.filter = ch.dataset.filter;
+      render();
+    }));
+    $q.addEventListener('input', e=> { state.q = e.target.value; render(); });
+
+    render();
+  </script>
+</body>
+</html>
