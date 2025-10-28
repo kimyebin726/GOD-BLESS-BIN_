@@ -466,10 +466,8 @@ footer::before {
   </style>
 </head>
 <body>
-  <!-- Loader -->
-  <div id="loader">
-    <img src="dandelion.png" class="dandelion" alt="dandelion" />
-  </div>
+  <iframe src="load.html?v=2" id="gbb-loader" style="border:none;width:100%;height:100vh;position:fixed;top:0;left:0;z-index:9999;"></iframe>
+
 
   <div id="content">
     <header>
@@ -684,41 +682,7 @@ footer::before {
   </div>
 
   <!-- Scripts -->
-  <script>
-    // Loader dandelion seeds
-    (function(){
-      const loader=document.getElementById('loader'), SEED_COUNT=10;
-      for(let i=0;i<SEED_COUNT;i++){
-        const s=document.createElement('img');
-        s.src='seed.png'; s.className='seed';
-        const dx=(Math.random()-0.5)*200+'px';
-        const dy=-(150+Math.random()*200)+'px';
-        const rot=(Math.random()-0.5)*60+'deg';
-        s.style.setProperty('--dx',dx); s.style.setProperty('--dy',dy); s.style.setProperty('--rot',rot);
-        s.style.animationDelay=(Math.random()*1)+'s';
-        loader.appendChild(s);
-      }
-      window.addEventListener('load',()=>{
-        loader.style.transition='opacity .8s ease';loader.style.opacity='0';
-        loader.addEventListener('transitionend',()=>{loader.remove();document.getElementById('content').style.visibility='visible';});
-      });
-    })();
-
-    // Split-hero subtle parallax
-    (() => {
-      const s=document.getElementById('gbbSplit'); if(!s) return;
-      const img=s.querySelector('.split-media img');
-      let tx=0,ty=0,cx=0,cy=0; const lerp=(a,b,t)=>a+(b-a)*t;
-      function move(e){
-        const r=s.getBoundingClientRect();
-        const mx=(e.clientX-(r.left+r.width/2))/r.width;
-        const my=(e.clientY-(r.top+r.height/2))/r.height;
-        tx=mx*12; ty=my*12;
-      }
-      function tick(){ cx=lerp(cx,tx,.08); cy=lerp(cy,ty,.08); img.style.transform=`translate3d(${cx}px,${cy}px,0) scale(1.06)`; requestAnimationFrame(tick); }
-      if(!matchMedia('(prefers-reduced-motion: reduce)').matches){ window.addEventListener('mousemove',move,{passive:true}); tick(); }
-    })();
-  </script>
+  
   <script>
   // Split-hero parallax (image + text follow cursor)
   (() => {
