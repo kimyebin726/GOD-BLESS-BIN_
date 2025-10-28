@@ -1,113 +1,122 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>GBB</title>
-  <style>
-    /* ─── 1. 로더 전체영역 ───────────────────────────────── */
-    #loader {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: #000;       /* 배경색 자유롭게 변경 */
-      overflow: hidden;
-      z-index: 9999;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GBB — Loading</title>
+<style>
+  :root{
+    --bg:#000;
+    --fade:260ms;
+    --ease:cubic-bezier(.2,.6,.2,1);
+    --size:min(44vw,520px);
+    --seedR:9.2%;
+    --coreR:12.5%;
+    --gap:20ms;  /* ✅ 더 빠르게: 씨앗 간 간격 */
+  }
+  html,body{height:100%;margin:0;background:var(--bg)}
+  body.lock{overflow:hidden}
 
-    /* ─── 2. 민들레 이미지를 화면 중앙에 고정 ─────────────── */
-    .dandelion {
-      position: absolute;
-      top: 50%; left: 50%;
-      width: 200px;          /* 이미지 크기 조절 */
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-    }
+  #loader{
+    position:fixed; inset:0; display:grid; place-items:center;
+    background:var(--bg); z-index:9999;
+    transition:opacity var(--fade) var(--ease), visibility 0s linear var(--fade);
+  }
+  .stage{position:relative; width:var(--size); aspect-ratio:1/1;}
 
-    /* ─── 3. 홀씨 기본 스타일 ─────────────────────────────── */
-    .seed {
-      position: absolute;
-      top: 40%; left: 50%;
-      width: 30px;           /* 홀씨 크기 */
-      transform-origin: center;
-      opacity: 0;
-      animation: flyUp 4s ease-out forwards;
-      pointer-events: none;
-    }
+  .piece{
+    position:absolute; inset:0;
+    background:url("loading.png") center/contain no-repeat;
+    opacity:0; transform:scale(.9);
+    animation:pop 160ms var(--ease) forwards; /* ✅ 더 빠른 팝 */
+    will-change:opacity, transform;
+  }
 
-    /* ─── 4. 홀씨 비행 애니메이션 ─────────────────────────── */
-    @keyframes flyUp {
-      0% {
-        opacity: 1;
-        transform: translate(0,0) scale(1) rotate(0deg);
-      }
-      100% {
-        opacity: 0;
-        transform:
-          translate(var(--dx), var(--dy))
-          scale(0.4)
-          rotate(var(--rot));
-      }
-    }
+  /* 16개 순차 딜레이 */
+  .piece:nth-child(2){animation-delay:calc(var(--gap)*1)}
+  .piece:nth-child(3){animation-delay:calc(var(--gap)*2)}
+  .piece:nth-child(4){animation-delay:calc(var(--gap)*3)}
+  .piece:nth-child(5){animation-delay:calc(var(--gap)*4)}
+  .piece:nth-child(6){animation-delay:calc(var(--gap)*5)}
+  .piece:nth-child(7){animation-delay:calc(var(--gap)*6)}
+  .piece:nth-child(8){animation-delay:calc(var(--gap)*7)}
+  .piece:nth-child(9){animation-delay:calc(var(--gap)*8)}
+  .piece:nth-child(10){animation-delay:calc(var(--gap)*9)}
+  .piece:nth-child(11){animation-delay:calc(var(--gap)*10)}
+  .piece:nth-child(12){animation-delay:calc(var(--gap)*11)}
+  .piece:nth-child(13){animation-delay:calc(var(--gap)*12)}
+  .piece:nth-child(14){animation-delay:calc(var(--gap)*13)}
+  .piece:nth-child(15){animation-delay:calc(var(--gap)*14)}
+  .piece:nth-child(16){animation-delay:calc(var(--gap)*15)}
 
-    /* ─── 5. 실제 콘텐츠 숨기기 ───────────────────────────── */
-    #content {
-      visibility: hidden;
-    }
-  </style>
+  @keyframes pop{
+    0%{opacity:0; transform:scale(.88)}
+    100%{opacity:1; transform:scale(1)}
+  }
+
+  #content{visibility:hidden}
+  .loaded #loader{opacity:0; visibility:hidden}
+  .loaded #content{visibility:visible}
+
+  @media (prefers-reduced-motion:reduce){
+    .piece{animation:none; opacity:1; transform:none}
+    #loader{transition:none}
+  }
+</style>
 </head>
-<body>
-
-  <!-- ─── 로더 영역 ───────────────────────────────────────── -->
-  <div id="loader">
-    <img src="dandelion.png" class="dandelion" alt="dandelion"/>
-    <!-- JS에서 seed 요소를 자동으로 추가합니다 -->
+<body class="lock">
+  <div id="loader" role="status" aria-live="polite" aria-label="로딩 중">
+    <div class="stage">
+      <!-- 외곽 12개 -->
+      <div class="piece" style="clip-path:circle(var(--seedR) at 50% 22%)"></div>
+      <div class="piece" style="clip-path:circle(var(--seedR) at 62% 28%)"></div>
+      <div class="piece" style="clip-path:circle(var(--seedR) at 72% 40%)"></div>
+      <div class="piece" style="clip-path:circle(var(--seedR) at 76% 52%)"></div>
+      <div class="piece" style="clip-path:circle(var(--seedR) at 70% 64%)"></div>
+      <div class="piece" style="clip-path:circle(var(--seedR) at 60% 73%)"></div>
+      <div class="piece" style="clip-path:circle(var(--seedR) at 50% 78%)"></div>
+      <div class="piece" style="clip-path:circle(var(--seedR) at 40% 73%)"></div>
+      <div class="piece" style="clip-path:circle(var(--seedR) at 30% 64%)"></div>
+      <div class="piece" style="clip-path:circle(var(--seedR) at 24% 52%)"></div>
+      <div class="piece" style="clip-path:circle(var(--seedR) at 28% 40%)"></div>
+      <div class="piece" style="clip-path:circle(var(--seedR) at 38% 28%)"></div>
+      <!-- 중심 4개 -->
+      <div class="piece" style="clip-path:circle(var(--coreR) at 50% 36%)"></div>
+      <div class="piece" style="clip-path:circle(var(--coreR) at 64% 50%)"></div>
+      <div class="piece" style="clip-path:circle(var(--coreR) at 50% 64%)"></div>
+      <div class="piece" style="clip-path:circle(var(--coreR) at 36% 50%)"></div>
+    </div>
   </div>
 
-  <!-- ─── 실제 페이지 콘텐츠 ──────────────────────────────── -->
   <div id="content">
-    <!-- 여기에 기존 페이지 구조를 넣으세요 -->
     <header>…</header>
     <main>…</main>
     <footer>…</footer>
   </div>
 
-  <script>
-    (function() {
-      const loader = document.getElementById('loader');
-      const SEED_COUNT = 10;  // 홀씨 개수
+<script>
+  const img=new Image();
+  img.src="loading.png";
+  const imgReady=("decode" in img)?img.decode().catch(()=>{}):Promise.resolve();
+  const domReady=new Promise(res=>{
+    if(document.readyState==="interactive"||document.readyState==="complete")res();
+    else document.addEventListener("DOMContentLoaded",res,{once:true});
+  });
 
-      // 홀씨 생성
-      for (let i = 0; i < SEED_COUNT; i++) {
-        const seed = document.createElement('img');
-        seed.src = 'seed.png';
-        seed.className = 'seed';
-
-        // 위로 퍼져나가도록 랜덤 거리·방향·회전값 설정
-        const dx   = (Math.random() - 0.5) * 200 + 'px';   // 좌우 ±50px
-        const dy   = -(150 + Math.random() * 200) + 'px'; // 위로 150~300px
-        const rot  = (Math.random() - 0.9) * 300 + 'deg';   // 회전 ±30°
-
-        seed.style.setProperty('--dx', dx);
-        seed.style.setProperty('--dy', dy);
-        seed.style.setProperty('--rot', rot);
-
-        // 자연스러운 시간차를 위한 지연
-        seed.style.animationDelay = (Math.random() * 1.0) + 's';
-
-        loader.appendChild(seed);
-      }
-
-      // 페이지 로드 완료 시 로더 페이드아웃 후 제거
-      window.addEventListener('load', () => {
-        loader.style.transition = 'opacity 0.9s ease';
-        loader.style.opacity = '0';
-        loader.addEventListener('transitionend', () => {
-          loader.remove();
-          document.getElementById('content').style.visibility = 'visible';
-        });
-      });
-    })();
-  </script>
+  // 총 길이 ≈ 16*20 + 160 + 120 ≈ 600ms
+  const total=16*20 + 160 + 120;
+  Promise.all([imgReady,domReady]).then(()=>{
+    setTimeout(()=>{
+      document.documentElement.classList.add("loaded");
+      document.body.classList.remove("lock");
+    }, total);
+  });
+  // 안전 타임아웃
+  setTimeout(()=>{
+    document.documentElement.classList.add("loaded");
+    document.body.classList.remove("lock");
+  }, 2000);
+</script>
 </body>
 </html>
+
