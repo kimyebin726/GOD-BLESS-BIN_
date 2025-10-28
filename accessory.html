@@ -274,28 +274,31 @@ body.lock{overflow:hidden}
     const KRW = v => v.toLocaleString('ko-KR');
     const items = [
       // ——— Sunglasses
-      { id:"sg01", name:"Crown Frame — Gold Amber Sunglasses", cat:"sunglasses", price: 380000, img:"sg1.jpg", badge:"NEW" },
-      { id:"sg02", name:"Halo Shade — Rose", cat:"sunglasses", price: 360000, img:"sg2.jpg" },
-      { id:"sg03", name:"Blessing Light — Noir Sunglasses", cat:"sunglasses", price: 340000, img:"sg3.jpg" },
+     {id:"sg01", name:"Crown of Flame — Amber Gold Sunglasses", cat:"sunglasses", price:420000, img:"sg1.jpg"},
+     {id:"sg02", name:"Divine Shade — Rose Ruby", cat:"sunglasses", price:400000, img:"sg2.jpg"},
+     {id:"sg03", name:"Blessing Cross — Noir Gold Sunglasses", cat:"sunglasses", price:380000, img:"sg3.jpg"},
 
-     // ——— Keyring
-      { id:"sg04", name:"Crown Frame — Tortoise", cat:"keyring", price: 380000, img:"sg4.jpg" },
-      { id:"br01", name:"Mini Crown Pin", cat:"keyring", price: 150000, img:"acc_brooch1.jpg" },
-      { id:"br02", name:"Dandelion Seed Brooch", cat:"keyring", price: 190000, img:"acc_brooch2.jpg" },
+      {id:"kr01", name:"Crown Bless Keyring — Gold Tortoise", cat:"keyring", price:380000, img:"acc_key1.jpg"},
+      {id:"kr02", name:"Wax Seal Keyring — Orange Seal", cat:"keyring", price:150000, img:"acc_key2.jpg"},
+      {id:"kr03", name:"Blessing Seed Keyring — Gold", cat:"keyring", price:190000, img:"acc_key3.jpg"},
 
       // ——— Hair
-      { id:"hr01", name:"Halo Comb", cat:"hair", price: 360000, img:"acc_hair1.jpg" },
-      { id:"hr02", name:"Grace Pin — Gold", cat:"hair", price: 190000, img:"acc_hair3.jpg" },
-      { id:"hr02", name:"Grace Pin — Gold", cat:"hair", price: 190000, img:"acc_hair2.jpg" },
+      {id:"hr01", name:"Halo Comb — Gold Black", cat:"hair", price:360000, img:"hair1.jpg"},
+     {id:"hr02", name:"Grace Pin — Starline Gold", cat:"hair", price:190000, img:"hair2.jpg"},
+     {id:"hr03", name:"Royal Grid Pin — Onyx Gold", cat:"hair", price:210000, img:"hair3.jpg"},
 
+  // ——— bracelet
 
-      { id:"bc02", name:"Seed Chain Anklet", cat:"bracelet", price: 390000, img:"acc_br2.jpg" },
-      { id:"kr01", name:"Bless Key Ring — Oval", cat:"keyring", price: 120000, img:"acc_key1.jpg" },
-      { id:"kr02", name:"Bless Bag Charm — Logo", cat:"keyring", price: 130000, img:"acc_key2.jpg" },
+    
+  {id:"bc01", name:"Seed Chain Bracelet — Brown Gold", cat:"bracelet", price:390000, img:"bracelet1.jpg"},
+  {id:"bc02", name:"Bless Knot Bracelet — Tricolor", cat:"bracelet", price:350000, img:"bracelet2.jpg"},
+  {id:"bc03", name:"Bless Charm Bracelet — Logo Black", cat:"bracelet", price:330000, img:"bracelet3.jpg"},
+
 
       // ——— Phone strap
-      { id:"ph01", name:"Dandelion Drop Strap", cat:"phonestrap", price: 49000, img:"acc_phone1.jpg" }
-    ];
+     { id:"ph01", name:"GBB Signature Bracelet — Brown Gold", cat:"bracelet", price: 390000, img:"bracelet4.jpg" }
+
+  ];
 
     const $grid = document.getElementById('grid');
     const $chips = [...document.querySelectorAll('.chip')];
