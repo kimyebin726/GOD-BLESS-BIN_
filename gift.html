@@ -67,7 +67,7 @@ nav.main{
 /* ================== Category Tabs ================== */
 .cat-tabs{
   position:fixed; left:0; right:0;
-  top: calc( (document.documentElement ? 0 : 0) + 76px ); /* JS에서 보정 */
+  top: 0;  /* ✅ 위쪽 공백 제거 */
   z-index:900;
   display:flex; gap:2.2rem; justify-content:center;
   padding:.9rem 1.2rem;
@@ -76,7 +76,10 @@ nav.main{
   border-bottom: 1px solid rgba(255,255,255,.08);
   opacity:0; transform: translateY(-8px);
   pointer-events:none;
-  transition: opacity .25s ease, transform .25s ease, top .32s ease;
+  transition: opacity .25s ease, transform .25s ease;
+}
+body.hide-header .cat-tabs{
+  top:0 !important;
 }
 .cat-tabs.is-visible{ opacity:1; transform:none; pointer-events:auto; }
 .cat-tabs a{font-size:.86rem; letter-spacing:.12em}
